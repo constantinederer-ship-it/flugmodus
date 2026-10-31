@@ -88,6 +88,8 @@ button.g,.btn.g{background:var(--sel);color:var(--tx);border:1px solid var(--bd)
   <div class="cbar"><input id="ci" placeholder="Nachricht" style="flex:1;margin:0"><button id="cs">Senden</button></div></div></div>
 <div id="v-me" class="hide"><h1 class="t">Mein Profil</h1><div class="card">
  <div id="pav" class="av l"></div>
+ <input id="photoInput" type="file" accept="image/*" class="hide">
+ <button class="g full" id="photoBtn" type="button">📷 Profilbild auswählen</button>
  <div class="mu" id="pst" style="text-align:center;min-height:4px"></div>
  <input id="pn" placeholder="Name"><textarea id="pi" rows="3" placeholder="Profilinfo (Rolle, Telefon, …)"></textarea>
  <div class="mu" style="margin-top:10px">Spezialgebiete</div><div class="chips" id="sk"></div>
@@ -132,12 +134,12 @@ var hs0=0;try{hs0=+localStorage.getItem("hs:"+uid)||0}catch(e){}
 function svHs(){try{localStorage.setItem("hs:"+uid,Date.now())}catch(e){}}
 document.addEventListener("visibilitychange",function(){if(document.hidden)svHs()});window.addEventListener("pagehide",svHs);
 var skills=[],room=null,jobs=[],profs={},chat=[],now=new Date(),Y=now.getFullYear(),M=now.getMonth(),sel=key(Y,M,now.getDate()),picks={},photo=null;
-function av(el,p){el.innerHTML="";el.textContent=((p&&p.name)||"?").trim().charAt(0).toUpperCase()}
+function av(el,p){el.innerHTML="";if(p&&typeof p.photo==="string"&&p.photo.startsWith("data:image/")){var im=document.createElement("img");im.src=p.photo;im.alt="Profilbild";el.appendChild(im)}else{el.textContent=((p&&p.name)||"?").trim().charAt(0).toUpperCase()}}
 function nm(u){var p=profs[u];return (p&&p.name)||"Teammitglied"}
 function canDel(j){try{return j.by===uid||user.canEdit()}catch(e){return j.by===uid}}
 db.collection("jobs").onSnapshot(function(s){jobs=s.docs.map(function(d){var x=d.data();x.id=d.id;return x});draw()},function(){});
-db.collection("chat").where("room","==","group").onSnapshot(function(s){chat=s.docs.map(function(d){return d.data()}).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat()},function(){});
-db.collection("profiles").onSnapshot(function(s){profs={};s.docs.forEach(function(d){profs[d.id]=d.data()});grp();draw();drawChat();if(!$("pn").dataset.l){$("pn").dataset.l=1;var m=profs[uid]||{};$("pn").value=m.name||"";$("pi").value=m.info||"";skills=m.skills||[];drawSk();av($("pav"),m)}},function(){});
+db.collection("chat").onSnapshot(function(s){chat=s.docs.map(function(d){return d.data()}).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat()},function(){});
+db.collection("profiles").onSnapshot(function(s){profs={};s.docs.forEach(function(d){profs[d.id]=d.data()});grp();draw();drawChat();if($("pn").dataset.l)av($("pav"),profs[uid]||{});if(!$("pn").dataset.l){$("pn").dataset.l=1;var m=profs[uid]||{};$("pn").value=m.name||"";$("pi").value=m.info||"";skills=m.skills||[];photo=m.photo||null;drawSk();av($("pav"),m)}},function(){});
 $("dw").innerHTML=["Mo","Di","Mi","Do","Fr","Sa","So"].map(function(d){return '<div class="dow">'+d+'</div>'}).join("");
 function draw(){
  markBusy();drawHome();$("ml").textContent=MN[M]+" "+Y;var f=(new Date(Y,M,1).getDay()+6)%7,n=new Date(Y,M+1,0).getDate(),tk=key(now.getFullYear(),now.getMonth(),now.getDate()),h="",has={};
@@ -216,13 +218,15 @@ $("js").onclick=async function(){var t=$("jt").value.trim();if(!t)return;
  var g=Object.keys(picks).filter(function(k){return picks[k]});
  try{await db.doc("jobs/j"+Date.now()+Math.random().toString(36).slice(2,6)).set({date:sel,title:t,time:$("jm").value,note:$("jn").value.trim(),gear:g,by:uid})}catch(e){alert("Speichern nicht möglich – dir fehlt evtl. die Schreibberechtigung.");return}
  $("jt").value=$("jm").value=$("jn").value="";picks={};[].forEach.call($("gw").children,function(b){b.classList.remove("on")});$("form").classList.add("hide")};
-$("ps").onclick=async function(){try{await db.doc("profiles/"+uid).set({name:$("pn").value.trim(),info:$("pi").value.trim(),skills:skills});$("ps").textContent="Gespeichert ✓";setTimeout(function(){$("ps").textContent="Profil speichern"},1500)}catch(e){alert("Speichern nicht möglich.")}};
+$("photoBtn").onclick=function(){$("photoInput").click()};
+$("photoInput").onchange=function(e){var file=e.target.files&&e.target.files[0];if(!file)return;if(!file.type.startsWith("image/")){alert("Bitte ein Bild auswählen.");return}if(file.size>12*1024*1024){alert("Bild ist zu groß (max. 12 MB).");return}var url=URL.createObjectURL(file),im=new Image();im.onload=function(){try{var c=document.createElement("canvas"),size=240,scale=Math.max(size/im.width,size/im.height);c.width=c.height=size;var ctx=c.getContext("2d");ctx.drawImage(im,(size-im.width*scale)/2,(size-im.height*scale)/2,im.width*scale,im.height*scale);photo=c.toDataURL("image/jpeg",.72);av($("pav"),{name:$("pn").value,photo:photo});$("pst").textContent="Bild ausgewählt – jetzt Profil speichern."}catch(err){alert("Bild konnte nicht verarbeitet werden.")}URL.revokeObjectURL(url)};im.onerror=function(){URL.revokeObjectURL(url);alert("Bild konnte nicht geöffnet werden.")};im.src=url};
+$("ps").onclick=async function(){try{await db.doc("profiles/"+uid).set({name:$("pn").value.trim(),info:$("pi").value.trim(),skills:skills,photo:photo||null});$("ps").textContent="Gespeichert ✓";setTimeout(function(){$("ps").textContent="Profil speichern"},1500)}catch(e){alert("Speichern nicht möglich.")}};
 [].forEach.call(document.querySelectorAll(".tabs button"),function(b){b.onclick=function(){["home","cal","grp","chat","me"].forEach(function(v){$("v-"+v).classList.toggle("hide",v!==b.dataset.v)});[].forEach.call(document.querySelectorAll(".tabs button"),function(x){x.classList.toggle("on",x===b)});drawChat()}});
 var SK=["FPV-Piloting","Drohnenflug","Kamera","Schnitt","Ton","Fotografie","Planung","Licht"];
 function drawSk(){var b=$("sk");b.innerHTML="";SK.forEach(function(k){var x=document.createElement("button");x.className="g";x.textContent=k;x.style.cssText="padding:6px 12px;font-size:13px;border-radius:20px";if(skills.indexOf(k)>-1){x.style.background="var(--ink)";x.style.color="var(--inkx)"}x.onclick=function(){var i=skills.indexOf(k);if(i>-1)skills.splice(i,1);else skills.push(k);drawSk()};b.appendChild(x)})}
 var ptr=$("ptr"),ty=null,pull=0,rbusy=false;
 function setP(p){ptr.style.opacity=Math.min(1,p/50);ptr.style.transform="translateY("+(p-40)+"px) rotate("+(p*5)+"deg)"}
-async function refresh(){if(rbusy)return;rbusy=true;ptr.classList.add("spin");try{var r=await Promise.all([db.collection("jobs").get(),db.collection("profiles").get(),db.collection("chat").where("room","==","group").get()]);jobs=r[0].docs.map(function(d){var x=d.data();x.id=d.id;return x});profs={};r[1].docs.forEach(function(d){profs[d.id]=d.data()});chat=r[2].docs.map(function(d){return d.data()}).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);draw();drawChat()}catch(e){}await new Promise(function(f){setTimeout(f,600)});ptr.classList.remove("spin");setP(0);rbusy=false}
+async function refresh(){if(rbusy)return;rbusy=true;ptr.classList.add("spin");try{var r=await Promise.all([db.collection("jobs").get(),db.collection("profiles").get(),db.collection("chat").get()]);jobs=r[0].docs.map(function(d){var x=d.data();x.id=d.id;return x});profs={};r[1].docs.forEach(function(d){profs[d.id]=d.data()});chat=r[2].docs.map(function(d){return d.data()}).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);draw();drawChat()}catch(e){}await new Promise(function(f){setTimeout(f,600)});ptr.classList.remove("spin");setP(0);rbusy=false}
 document.addEventListener("touchstart",function(e){ty=(window.scrollY<=0&&!$("v-cal").classList.contains("hide")&&e.touches.length===1)?e.touches[0].clientY:null;pull=0},{passive:true});
 document.addEventListener("touchmove",function(e){if(ty===null||rbusy)return;pull=Math.max(0,Math.min(90,(e.touches[0].clientY-ty)*.5));setP(pull)},{passive:true});
 document.addEventListener("touchend",function(){if(ty!==null&&pull>=55)refresh();else if(!rbusy)setP(0);ty=null;pull=0});
