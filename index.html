@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Flugmodus</title>
+<title>FLUGMODUS 2.3 · Gold Plus Test</title>
 <style>
 :root{--bg:#f2f0ec;--card:rgba(255,255,255,.7);--tx:#1b1a18;--mu:#6e6a63;--ac:#9a7440;--ac2:#8b95a5;--acx:#fff;--bd:rgba(30,25,15,.10);--sel:rgba(30,25,15,.055);--ink:#1b1a18;--inkx:#fff;--sh:0 8px 32px rgba(60,45,20,.10);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -71,6 +71,32 @@ button,.btn{transition:background .15s,border-color .15s,transform .15s}button:a
 .gear{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}.w{min-width:0;min-height:85px;padding:13px 10px;border-radius:16px;flex-direction:row;justify-content:flex-start;text-align:left;gap:11px;font-size:13px;line-height:1.25;overflow-wrap:anywhere}.w span{width:38px;height:38px;min-width:38px;border-radius:12px;font-size:12px}.w.on{background:var(--sel);border-color:var(--ac)}.w .bz{display:block;max-width:100%;overflow-wrap:anywhere}
 .tabs{background:var(--card);border-radius:23px;max-width:560px;box-shadow:0 12px 35px rgba(0,0,0,.22);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}.tabs button.on{background:var(--sel);color:var(--ac)}
 @media(max-width:390px){.wrap{padding-left:12px;padding-right:12px}.card{padding:16px}.gear{gap:7px}.w{padding:10px 7px;gap:7px;font-size:12px}.w span{width:32px;height:32px;min-width:32px}.tabs{width:calc(100% - 10px)}.tabs button{font-size:clamp(7px,1.9vw,9px)}}
+
+/* FLUGMODUS 2.3 Gold Plus – sichtbare Startseiten-Widgets */
+:root{--ac:#b68a4d;--ac2:#a79a85;--sh:0 14px 38px rgba(84,59,24,.09)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ac:#e7c488;--ac2:#b79a67;--bg:#0d1014;--card:rgba(28,29,33,.91);--bd:rgba(231,196,136,.15);--sel:rgba(231,196,136,.065);--sh:0 14px 40px rgba(0,0,0,.3)}}
+:root[data-theme="dark"]{--ac:#e7c488;--ac2:#b79a67;--bg:#0d1014;--card:rgba(28,29,33,.91);--bd:rgba(231,196,136,.15);--sel:rgba(231,196,136,.065);--sh:0 14px 40px rgba(0,0,0,.3)}
+.card{border-color:var(--bd);box-shadow:var(--sh)}
+.card h2{color:var(--ac)}
+.hero h1{letter-spacing:.22em}
+.clock{padding:14px 4px 18px}#hc{font-size:clamp(64px,17vw,83px)}
+.home-welcome{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.home-welcome .mini-mark{font-size:11px;color:var(--ac);text-transform:uppercase;letter-spacing:.16em;font-weight:800}
+.home-weather-card{border:1px solid rgba(182,138,77,.35);background:linear-gradient(135deg,rgba(182,138,77,.13),var(--card) 65%)}
+.weather-main{display:flex;align-items:center;gap:14px}.weather-icon{font-size:34px}
+.weather-place{display:flex;gap:8px;margin-top:12px;align-items:center}.weather-place input{margin:0;min-width:0;flex:1}.weather-place button{flex:none;padding:12px 13px}
+.home-feature{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.home-feature p{margin:4px 0 0}
+.home-shortcuts{grid-template-columns:repeat(3,minmax(0,1fr))}
+.home-shortcuts button{border-color:rgba(182,138,77,.2)}
+.home-shortcuts button:active{background:rgba(182,138,77,.15)}
+.weather-temp{font-size:36px;font-weight:750;line-height:1.1}
+
+.home-weather{display:flex;justify-content:space-between;align-items:center;gap:12px}.weather-temp{font-size:29px;font-weight:700}
+.home-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.home-shortcuts button{padding:14px 5px;font-size:12px;border:1px solid var(--bd);background:var(--sel);color:var(--tx);border-radius:15px}
+.home-shortcuts button span{display:block;font-size:23px;margin-bottom:5px}
+.team-search{margin:0 0 14px}.team-empty{padding:14px 0;color:var(--mu)}
 </style><meta name="theme-color" content="#0a0b0d"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <div id="login" class="hide" style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto"><div class="card" style="width:100%;max-width:400px">
 <div class="hero" style="padding:0 0 14px"><h1>FLUGMODUS</h1></div>
@@ -83,11 +109,14 @@ button,.btn{transition:background .15s,border-color .15s,transform .15s}button:a
 <div id="msg" class="card">Lade …</div>
 <div id="ptr"></div>
 <div id="main" class="hide">
-<div id="v-home">
+<div id="v-home"><div id="hf" class="hide"></div>
  <div class="hero"><h1><svg viewBox="0 0 512 512" width="28" height="28" style="vertical-align:middle;margin-right:10px"><rect width="512" height="512" rx="115" fill="#17191d"/><g stroke="#e3c498" stroke-linecap="round" fill="none"><path d="M256 256L150 150M362 150L256 256M150 362L256 256M362 362L256 256" stroke-width="14"/><circle cx="150" cy="150" r="54" stroke-width="12"/><circle cx="362" cy="150" r="54" stroke-width="12"/><circle cx="150" cy="362" r="54" stroke-width="12"/><circle cx="362" cy="362" r="54" stroke-width="12"/></g><circle cx="256" cy="256" r="36" fill="#e3c498"/></svg>FLUGMODUS</h1><p>Team-Planer</p></div>
  <div class="clock"><div id="hg" class="mu"></div><div id="hc"></div><div id="hd" class="mu"></div></div>
- <div class="card"><h2>Als Nächstes</h2><div id="hn"></div></div>
- <div class="card"><h2>Neuigkeiten</h2><div id="hf"></div></div>
+ <div class="card home-weather-card"><div class="home-feature"><div><h2 style="margin-bottom:5px">Wetter vor Ort</h2><div class="mu" style="font-size:12px">Aktuelle Bedingungen</div></div><span style="font-size:24px">☀️</span></div>
+ <div class="weather-main" style="margin-top:10px"><div id="weatherIcon" class="weather-icon">🌤️</div><div><div id="weatherValue" class="weather-temp">Wird geladen …</div><div id="weatherNote" class="mu" aria-live="polite">Wetterdienst wird kontaktiert</div></div></div>
+ <div class="weather-place"><input id="weatherCity" aria-label="Ort für Wetter" value="Plauen" placeholder="Ort eingeben, z. B. Plauen"><button class="g" id="weatherBtn" type="button">Anzeigen</button></div></div>
+ <div class="card"><h2>Nächste Aufträge</h2><div id="hn"></div></div>
+ <div class="card"><h2>Schnellzugriff</h2><div class="home-shortcuts"><button data-go="cal"><span>📅</span>Kalender</button><button data-go="grp"><span>👥</span>Team</button><button data-go="gear"><span>📷</span>Technik</button><button data-go="chat"><span>💬</span>Chat</button><button data-go="stats"><span>📊</span>Statistik</button><button data-go="me"><span>👤</span>Profil</button></div></div>
 </div>
 <div id="v-cal" class="hide">
  <div class="hero"><h1><svg viewBox="0 0 512 512" width="28" height="28" style="vertical-align:middle;margin-right:10px"><rect width="512" height="512" rx="115" fill="#17191d"/><g stroke="#e3c498" stroke-linecap="round" fill="none"><path d="M256 256L150 150M362 150L256 256M150 362L256 256M362 362L256 256" stroke-width="14"/><circle cx="150" cy="150" r="54" stroke-width="12"/><circle cx="362" cy="150" r="54" stroke-width="12"/><circle cx="150" cy="362" r="54" stroke-width="12"/><circle cx="362" cy="362" r="54" stroke-width="12"/></g><circle cx="256" cy="256" r="36" fill="#e3c498"/></svg>FLUGMODUS</h1><p>Team-Planer</p></div>
@@ -100,7 +129,7 @@ button,.btn{transition:background .15s,border-color .15s,transform .15s}button:a
   <div class="mu" style="margin-top:12px">Technik auswählen · Mehrfachauswahl möglich</div><div class="gear" id="gw"></div>
   <button class="full" id="js">Speichern</button><button class="g full" id="jc">Abbrechen</button></div>
 </div>
-<div id="v-grp" class="hide"><h1 class="t">Team</h1><div id="teamList" class="card"><h2>Teammitglieder · Profil antippen</h2><div id="gl"></div></div><div id="teamDetail" class="card hide"><button id="teamBack" class="g">‹ Zurück zum Team</button><div id="teamAvatar" class="av l" style="margin-top:18px"></div><h1 id="teamName" style="text-align:center"></h1><p id="teamInfo" class="mu" style="text-align:center;white-space:pre-wrap"></p><div id="teamSkills" class="chips" style="justify-content:center"></div><button id="teamChat" class="full">Privatchat öffnen</button></div></div>
+<div id="v-grp" class="hide"><h1 class="t">Team</h1><div id="teamList" class="card"><h2>Teammitglieder · Profil antippen</h2><input id="teamSearch" class="team-search" placeholder="Mitglied suchen" aria-label="Teammitglieder suchen"><div id="gl"></div></div><div id="teamDetail" class="card hide"><button id="teamBack" class="g">‹ Zurück zum Team</button><div id="teamAvatar" class="av l" style="margin-top:18px"></div><h1 id="teamName" style="text-align:center"></h1><p id="teamInfo" class="mu" style="text-align:center;white-space:pre-wrap"></p><div id="teamSkills" class="chips" style="justify-content:center"></div><button id="teamChat" class="full">Privatchat öffnen</button></div></div>
 <div id="v-gear" class="hide"><h1 class="t">Technik</h1><div class="card"><h2>Gerätebestand</h2><p class="mu">Die Geräte werden für Aufträge und Verfügbarkeit verwendet.</p><div id="equipmentList"></div><div id="equipmentError" class="mu"></div><div id="equipmentAdmin" class="hide"><h2 style="margin-top:18px">Gerät hinzufügen</h2><input id="equipmentName" placeholder="Gerätename, z. B. DJI Air 3"><button id="equipmentAdd" class="full">Gerät hinzufügen</button></div></div></div>
 <div id="v-stats" class="hide"><h1 class="t">Statistik</h1><div class="card"><h2>Aufträge im Überblick</h2><div id="statsCards" class="statgrid"></div></div><div class="card"><h2>Häufigste Technik</h2><div id="statsGear"></div></div><div class="card"><h2>Aufträge nach Teammitglied</h2><div id="statsMembers"></div></div></div>
 <div id="v-chat" class="hide">
@@ -117,7 +146,7 @@ button,.btn{transition:background .15s,border-color .15s,transform .15s}button:a
  <input id="pn" placeholder="Name"><textarea id="pi" rows="3" placeholder="Profilinfo (Rolle, Telefon, …)"></textarea>
  <div class="mu" style="margin-top:10px">Spezialgebiete</div><div class="chips" id="sk"></div>
  <button class="full" id="ps">Profil speichern</button><button class="g full" id="lo">Abmelden</button></div></div>
-<div class="tabs"><button data-v="grp"><span class="nav-icon">👥</span><span class="nav-label">Team</span></button><button data-v="gear"><span class="nav-icon">📷</span><span class="nav-label">Technik</span></button><button data-v="stats"><span class="nav-icon">📊</span><span class="nav-label">Statistik</span></button><button data-v="admin" id="adminTab" class="hide"><span class="nav-icon">⚙️</span><span class="nav-label">Admin</span></button><button data-v="home" class="on"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg><span class="nav-label">Home</span></button><button data-v="cal"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span class="nav-label">Kalender</span></button><button data-v="chat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="nav-label">Chat</span><span id="cbadge" class="hide" style="position:absolute;top:0;left:calc(50% + 6px);background:var(--ac);color:#fff;border-radius:10px;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px"></span></button><button data-v="me"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.5 4-7 8-7s7.3 2.5 8 7"/></svg><span class="nav-label">Profil</span></button></div>
+<div class="tabs"><button data-v="home" class="on"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg><span class="nav-label">Home</span></button><button data-v="admin" id="adminTab" class="hide"><span class="nav-icon">⚙️</span><span class="nav-label">Admin</span></button><button data-v="grp"><span class="nav-icon">👥</span><span class="nav-label">Team</span></button><button data-v="cal"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span class="nav-label">Kalender</span></button><button data-v="gear"><span class="nav-icon">📷</span><span class="nav-label">Technik</span></button><button data-v="stats"><span class="nav-icon">📊</span><span class="nav-label">Statistik</span></button><button data-v="chat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="nav-label">Chat</span><span id="cbadge" class="hide" style="position:absolute;top:0;left:calc(50% + 6px);background:var(--ac);color:#fff;border-radius:10px;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px"></span></button><button data-v="me"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.5 4-7 8-7s7.3 2.5 8 7"/></svg><span class="nav-label">Profil</span></button></div>
 </div></div>
 <script src="config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -188,6 +217,9 @@ if(admin){
  },function(){ $("adminList").textContent="Mitglieder konnten nicht geladen werden." });
 }
 if(!admin)document.querySelector(".tabs").style.gridTemplateColumns="repeat(7,minmax(0,1fr))";
+// Fehlende eigene Profile für freigegebene Mitglieder automatisch anlegen.
+// Bestehende Profile werden niemals überschrieben.
+try{var selfProfile=await db.doc("profiles/"+uid).get();if(!selfProfile.exists){await db.doc("profiles/"+uid).set({name:(authUser.email||"Teammitglied").split("@")[0],info:"",skills:[],photo:null})}}catch(e){console.warn("Profil konnte nicht angelegt werden:",e)}
 $("msg").classList.add("hide");$("main").classList.remove("hide");
 var seen={};try{seen=JSON.parse(localStorage.getItem("seen:"+uid)||"{}")}catch(e){}
 var hs0=0;try{hs0=+localStorage.getItem("hs:"+uid)||0}catch(e){}
@@ -207,8 +239,8 @@ db.collection("equipment").onSnapshot(function(snapshot){GEAR=GEAR.filter(functi
 $("equipmentAdd").onclick=async function(){if(!admin)return;var name=$("equipmentName").value.trim();if(!name)return;if(name.length>80){alert("Name zu lang (maximal 80 Zeichen).");return}var id="eq"+Date.now();try{await db.doc("equipment/"+id).set({name:name,createdBy:uid,createdAt:Date.now()});$("equipmentName").value=""}catch(e){alert("Gerät konnte nicht gespeichert werden. Bitte Firebase-Regeln prüfen.")}};
 db.collection("jobs").onSnapshot(function(s){jobs=s.docs.map(function(d){var x=d.data();x.id=d.id;return x});draw();renderEquipment();renderStats()},function(){});
 function syncChat(){chat=groupChat.concat(directChat).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat()}
-db.collection("chat").where("room","==","group").onSnapshot(function(s){groupChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Gruppenchat:",e)});
-db.collection("directMessages").where("participants","array-contains",uid).onSnapshot(function(s){directChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Privatchat:",e)});
+db.collection("chat").where("room","==","group").onSnapshot(function(s){groupChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Gruppenchat:",e);alert("Teamchat konnte nicht geladen werden. Bitte Verbindung und Firebase-Regeln prüfen.")});
+db.collection("directMessages").where("participants","array-contains",uid).onSnapshot(function(s){directChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Privatchat:",e);alert("Privatchats konnten nicht geladen werden. Bitte Verbindung prüfen.")});
 db.collection("profiles").onSnapshot(function(s){profs={};s.docs.forEach(function(d){profs[d.id]=d.data()});grp();draw();drawChat();renderStats();if($("pn").dataset.l)av($("pav"),profs[uid]||{});if(!$("pn").dataset.l){$("pn").dataset.l=1;var m=profs[uid]||{};$("pn").value=m.name||"";$("pi").value=m.info||"";skills=m.skills||[];photo=m.photo||null;drawSk();av($("pav"),m)}},function(){});
 $("dw").innerHTML=["Mo","Di","Mi","Do","Fr","Sa","So"].map(function(d){return '<div class="dow">'+d+'</div>'}).join("");
 function draw(){
@@ -250,15 +282,16 @@ function drawHome(){tick();
   if(e.k==="job"){a.textContent=nm(e.j.by)+" hat „"+e.j.title+"“ für "+dlabel(e.j.date)+" eingetragen";r.onclick=function(){goDay(e.j.date)}}
   else{a.textContent=nm(e.m.by)+": "+e.m.text;r.onclick=function(){document.querySelector('.tabs button[data-v="chat"]').click()}}
   s.textContent=(e.k==="job"?"Kalender":"Chat")+" · "+rel(e.ts);t.appendChild(a);t.appendChild(s);r.appendChild(dt);r.appendChild(t);f.appendChild(r)})}
-function grp(){var b=$("gl");b.innerHTML="";var ids=Object.keys(profs);if(!ids.length){b.innerHTML='<p class="mu">Noch keine Profile. Lege deins unter „Profil“ an.</p>';return}
+function grp(){var b=$("gl");b.innerHTML="";var search=($("teamSearch").value||"").toLocaleLowerCase("de");var ids=Object.keys(profs).filter(function(id){var p=profs[id]||{};return ((p.name||"")+" "+(p.info||"")).toLocaleLowerCase("de").includes(search)}).sort(function(a,b){return nm(a).localeCompare(nm(b),"de")});if(!ids.length){b.innerHTML='<p class="mu">Keine passenden Teamprofile gefunden.</p>';return}
  ids.forEach(function(id){var p=profs[id],r=document.createElement("div");r.className="row job";r.style.cursor="pointer";r.onclick=function(){openTeamProfile(id)};var a=document.createElement("div");a.className="av";av(a,p);
   var t=document.createElement("div"),n=document.createElement("b"),i=document.createElement("div");n.textContent=p.name||"Ohne Namen";i.className="mu";i.textContent=p.info||"";t.appendChild(n);t.appendChild(i);if((p.skills||[]).length){var k=document.createElement("div");k.className="chips";k.style.marginTop="6px";p.skills.forEach(function(x){var c=document.createElement("span");c.className="chip";c.textContent=x;k.appendChild(c)});t.appendChild(k)}r.appendChild(a);r.appendChild(t);b.appendChild(r)})}
 function openTeamProfile(id){var p=profs[id];if(!p)return;$("teamList").classList.add("hide");$("teamDetail").classList.remove("hide");av($("teamAvatar"),p);$("teamName").textContent=p.name||"Teammitglied";$("teamInfo").textContent=p.info||"Keine Profilbeschreibung";$("teamSkills").innerHTML="";(p.skills||[]).forEach(function(k){var c=document.createElement("span");c.className="chip";c.textContent=k;$("teamSkills").appendChild(c)});$("teamChat").classList.toggle("hide",id===uid);$("teamChat").onclick=function(){var btn=document.querySelector('.tabs button[data-v="chat"]');btn.click();room={id:[uid,id].sort().join("__"),peer:id,title:nm(id),p:p};$("cl").classList.add("hide");$("cr").classList.remove("hide");av($("cav"),p);$("ctt").textContent=nm(id);$("csub").textContent=(p.skills||[]).join(" · ");drawChat()};window.scrollTo(0,0)}
+$("teamSearch").addEventListener("input",grp);
 $("teamBack").onclick=function(){$("teamDetail").classList.add("hide");$("teamList").classList.remove("hide")};
 function fmt(ts){var d=new Date(ts||0);return pad(d.getHours())+":"+pad(d.getMinutes())}
 function msgs(id){return chat.filter(function(m){return (m.room||"group")===id})}
 function drawChat(){
- drawHome();var L=$("clist");L.innerHTML="";var rooms=[{id:"group",title:"Team-Chat",p:null}];
+var L=$("clist");L.innerHTML="";var rooms=[{id:"group",title:"Team-Chat",p:null}];
  Object.keys(profs).forEach(function(u){if(u!==uid)rooms.push({id:[uid,u].sort().join("__"),peer:u,title:nm(u),p:profs[u]})});
  if(room&&!$("v-chat").classList.contains("hide")){var lm=msgs(room.id).slice(-1)[0];if(lm&&(seen[room.id]||0)<lm.ts){seen[room.id]=lm.ts;try{localStorage.setItem("seen:"+uid,JSON.stringify(seen))}catch(e){}}}
  var tot=0;rooms.forEach(function(r){r.last=msgs(r.id).slice(-1)[0];r.un=msgs(r.id).filter(function(m){return m.by!==uid&&m.ts>(seen[r.id]||0)}).length;tot+=r.un});
@@ -311,6 +344,32 @@ async function refresh(){if(rbusy)return;rbusy=true;ptr.classList.add("spin");tr
 document.addEventListener("touchstart",function(e){ty=(window.scrollY<=0&&!$("v-cal").classList.contains("hide")&&e.touches.length===1)?e.touches[0].clientY:null;pull=0},{passive:true});
 document.addEventListener("touchmove",function(e){if(ty===null||rbusy)return;pull=Math.max(0,Math.min(90,(e.touches[0].clientY-ty)*.5));setP(pull)},{passive:true});
 document.addEventListener("touchend",function(){if(ty!==null&&pull>=55)refresh();else if(!rbusy)setP(0);ty=null;pull=0});
+// Öffentliche Wetterdaten für einen selbst gewählten Ort. Keine Standortfreigabe nötig.
+var weatherRequest=0;
+async function loadWeather(){
+ var city=$("weatherCity").value.trim(),rid=++weatherRequest;
+ if(!city){$("weatherNote").textContent="Bitte einen Ort eingeben.";return}
+ $("weatherValue").textContent="Wird geladen …";$("weatherNote").textContent="Suche nach "+city+" …";
+ try{
+  var g=await fetch("https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(city)+"&count=1&language=de&format=json");
+  if(!g.ok)throw new Error("Ortssuche fehlgeschlagen");
+  var places=await g.json();if(!places.results||!places.results.length)throw new Error("Ort nicht gefunden");
+  var loc=places.results[0];
+  var u="https://api.open-meteo.com/v1/forecast?latitude="+encodeURIComponent(loc.latitude)+"&longitude="+encodeURIComponent(loc.longitude)+"&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto";
+  var r=await fetch(u);if(!r.ok)throw new Error("Wetterdienst nicht erreichbar");
+  var data=await r.json(),w=data.current||{};
+  if(typeof w.temperature_2m!=="number")throw new Error("Keine Wetterdaten");
+  if(rid!==weatherRequest)return;
+  var code=w.weather_code,desc=code===0?"Klarer Himmel":code<=3?"Teilweise bewölkt":code<=48?"Nebel":code<=67?"Regen":code<=77?"Schnee":code<=82?"Schauer":"Gewitter oder Schauer";
+  $("weatherIcon").textContent=code===0?"☀️":code<=3?"⛅":code<=48?"🌫️":code<=67?"🌧️":code<=77?"❄️":code<=82?"🌦️":"⛈️";
+  $("weatherValue").textContent=Math.round(w.temperature_2m)+" °C";
+  $("weatherNote").textContent=loc.name+" · "+desc+(typeof w.wind_speed_10m==="number"?" · Wind "+Math.round(w.wind_speed_10m)+" km/h":"");
+ }catch(e){if(rid!==weatherRequest)return;$("weatherIcon").textContent="🌤️";$("weatherValue").textContent="Nicht verfügbar";$("weatherNote").textContent=e.message+". Erneut versuchen."}
+}
+$("weatherBtn").onclick=loadWeather;
+$("weatherCity").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();loadWeather()}});
+loadWeather();
+[].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){var t=document.querySelector('.tabs button[data-v="'+b.dataset.go+'"]');if(t)t.click()}});
 $("cb").onclick=function(){room=null;$("cr").classList.add("hide");$("cl").classList.remove("hide");drawChat()};
 drawSk();
 draw();grp();drawChat();renderEquipment();renderStats();
