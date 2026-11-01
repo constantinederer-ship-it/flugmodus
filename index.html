@@ -167,12 +167,14 @@ var seen={};try{seen=JSON.parse(localStorage.getItem("seen:"+uid)||"{}")}catch(e
 var hs0=0;try{hs0=+localStorage.getItem("hs:"+uid)||0}catch(e){}
 function svHs(){try{localStorage.setItem("hs:"+uid,Date.now())}catch(e){}}
 document.addEventListener("visibilitychange",function(){if(document.hidden)svHs()});window.addEventListener("pagehide",svHs);
-var skills=[],room=null,jobs=[],profs={},chat=[],now=new Date(),Y=now.getFullYear(),M=now.getMonth(),sel=key(Y,M,now.getDate()),picks={},photo=null;
+var skills=[],room=null,jobs=[],profs={},chat=[],groupChat=[],directChat=[],now=new Date(),Y=now.getFullYear(),M=now.getMonth(),sel=key(Y,M,now.getDate()),picks={},photo=null;
 function av(el,p){el.innerHTML="";el.textContent=((p&&p.name)||"?").trim().charAt(0).toUpperCase()}
 function nm(u){var p=profs[u];return (p&&p.name)||"Teammitglied"}
 function canDel(j){return j.by===uid||admin}
 db.collection("jobs").onSnapshot(function(s){jobs=s.docs.map(function(d){var x=d.data();x.id=d.id;return x});draw()},function(){});
-db.collection("chat").onSnapshot(function(s){chat=s.docs.map(function(d){return d.data()}).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat()},function(){});
+function syncChat(){chat=groupChat.concat(directChat).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat()}
+db.collection("chat").where("room","==","group").onSnapshot(function(s){groupChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Gruppenchat:",e)});
+db.collection("directMessages").where("participants","array-contains",uid).onSnapshot(function(s){directChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Privatchat:",e)});
 db.collection("profiles").onSnapshot(function(s){profs={};s.docs.forEach(function(d){profs[d.id]=d.data()});grp();draw();drawChat();if(!$("pn").dataset.l){$("pn").dataset.l=1;var m=profs[uid]||{};$("pn").value=m.name||"";$("pi").value=m.info||"";skills=m.skills||[];drawSk();av($("pav"),m)}},function(){});
 $("dw").innerHTML=["Mo","Di","Mi","Do","Fr","Sa","So"].map(function(d){return '<div class="dow">'+d+'</div>'}).join("");
 function draw(){
@@ -221,7 +223,7 @@ function fmt(ts){var d=new Date(ts||0);return pad(d.getHours())+":"+pad(d.getMin
 function msgs(id){return chat.filter(function(m){return (m.room||"group")===id})}
 function drawChat(){
  drawHome();var L=$("clist");L.innerHTML="";var rooms=[{id:"group",title:"Team-Chat",p:null}];
- Object.keys(profs).forEach(function(u){if(u!==uid)rooms.push({id:[uid,u].sort().join("__"),title:nm(u),p:profs[u]})});
+ Object.keys(profs).forEach(function(u){if(u!==uid)rooms.push({id:[uid,u].sort().join("__"),peer:u,title:nm(u),p:profs[u]})});
  if(room&&!$("v-chat").classList.contains("hide")){var lm=msgs(room.id).slice(-1)[0];if(lm&&(seen[room.id]||0)<lm.ts){seen[room.id]=lm.ts;try{localStorage.setItem("seen:"+uid,JSON.stringify(seen))}catch(e){}}}
  var tot=0;rooms.forEach(function(r){r.last=msgs(r.id).slice(-1)[0];r.un=msgs(r.id).filter(function(m){return m.by!==uid&&m.ts>(seen[r.id]||0)}).length;tot+=r.un});
  var bd=$("cbadge");bd.textContent=tot;bd.classList.toggle("hide",!tot);
@@ -241,7 +243,9 @@ function drawChat(){
   var u=document.createElement("div");u.className="bub";if(room.id==="group"&&m.by!==uid){var s=document.createElement("small");s.textContent=nm(m.by);u.appendChild(s)}
   var t=document.createElement("span");t.textContent=m.text;var h=document.createElement("small");h.style.cssText="text-align:right;margin:2px 0 0";h.textContent=fmt(m.ts);u.appendChild(t);u.appendChild(h);if(room.id==="group"){r.appendChild(a)}r.appendChild(u);b.appendChild(r)});
  window.scrollTo(0,document.body.scrollHeight)}
-async function send(){var t=$("ci").value.trim();if(!t||!room)return;$("ci").value="";try{await db.doc("chat/m"+Date.now()+Math.random().toString(36).slice(2,6)).set({text:t,by:uid,ts:Date.now(),room:room.id})}catch(e){alert("Senden nicht möglich.")}}
+async function send(){var t=$("ci").value.trim();if(!t||!room)return;$("ci").value="";try{var id="m"+Date.now()+Math.random().toString(36).slice(2,6);
+ if(room.id==="group")await db.doc("chat/"+id).set({text:t,by:uid,ts:Date.now(),room:"group"});
+ else{var people=[uid,room.peer].sort();await db.doc("directMessages/"+id).set({text:t,by:uid,ts:Date.now(),room:people.join("__"),participants:people})}}catch(e){alert("Senden nicht möglich.")}}
 $("cs").onclick=send;$("ci").addEventListener("keydown",function(e){if(e.key==="Enter")send()});
 $("prev").onclick=function(){if(--M<0){M=11;Y--}draw()};$("next").onclick=function(){if(++M>11){M=0;Y++}draw()};
 $("gw").innerHTML=GEAR.map(function(g){return '<button class="w" data-g="'+g[0]+'"><span>'+g[1]+'</span>'+g[2]+'</button>'}).join("");
@@ -258,7 +262,7 @@ var SK=["FPV-Piloting","Drohnenflug","Kamera","Schnitt","Ton","Fotografie","Plan
 function drawSk(){var b=$("sk");b.innerHTML="";SK.forEach(function(k){var x=document.createElement("button");x.className="g";x.textContent=k;x.style.cssText="padding:6px 12px;font-size:13px;border-radius:20px";if(skills.indexOf(k)>-1){x.style.background="var(--ink)";x.style.color="var(--inkx)"}x.onclick=function(){var i=skills.indexOf(k);if(i>-1)skills.splice(i,1);else skills.push(k);drawSk()};b.appendChild(x)})}
 var ptr=$("ptr"),ty=null,pull=0,rbusy=false;
 function setP(p){ptr.style.opacity=Math.min(1,p/50);ptr.style.transform="translateY("+(p-40)+"px) rotate("+(p*5)+"deg)"}
-async function refresh(){if(rbusy)return;rbusy=true;ptr.classList.add("spin");try{var r=await Promise.all([db.collection("jobs").get(),db.collection("profiles").get(),db.collection("chat").get()]);jobs=r[0].docs.map(function(d){var x=d.data();x.id=d.id;return x});profs={};r[1].docs.forEach(function(d){profs[d.id]=d.data()});chat=r[2].docs.map(function(d){return d.data()}).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);draw();drawChat()}catch(e){}await new Promise(function(f){setTimeout(f,600)});ptr.classList.remove("spin");setP(0);rbusy=false}
+async function refresh(){if(rbusy)return;rbusy=true;ptr.classList.add("spin");try{var r=await Promise.all([db.collection("jobs").get(),db.collection("profiles").get(),db.collection("chat").where("room","==","group").get(),db.collection("directMessages").where("participants","array-contains",uid).get()]);jobs=r[0].docs.map(function(d){var x=d.data();x.id=d.id;return x});profs={};r[1].docs.forEach(function(d){profs[d.id]=d.data()});groupChat=r[2].docs.map(function(d){return d.data()});directChat=r[3].docs.map(function(d){return d.data()});syncChat();draw()}catch(e){}await new Promise(function(f){setTimeout(f,600)});ptr.classList.remove("spin");setP(0);rbusy=false}
 document.addEventListener("touchstart",function(e){ty=(window.scrollY<=0&&!$("v-cal").classList.contains("hide")&&e.touches.length===1)?e.touches[0].clientY:null;pull=0},{passive:true});
 document.addEventListener("touchmove",function(e){if(ty===null||rbusy)return;pull=Math.max(0,Math.min(90,(e.touches[0].clientY-ty)*.5));setP(pull)},{passive:true});
 document.addEventListener("touchend",function(){if(ty!==null&&pull>=55)refresh();else if(!rbusy)setP(0);ty=null;pull=0});
