@@ -58,6 +58,7 @@ button.g,.btn.g{background:var(--sel);color:var(--tx);border:1px solid var(--bd)
 <input id="le" type="email" placeholder="E-Mail" autocomplete="email"><input id="lp" type="password" placeholder="Passwort (mind. 6 Zeichen)" autocomplete="current-password">
 <div class="mu" id="lerr" style="color:var(--ac);min-height:20px"></div>
 <button class="full" id="lin">Anmelden</button><button class="g full" id="lreg">Neu registrieren</button></div></div>
+<div id="approval" class="hide" style="position:fixed;inset:0;z-index:20;background:var(--bg);padding:32px 18px;overflow:auto"><div class="card" style="max-width:420px;margin:12vh auto"><h1>FLUGMODUS</h1><h2>Mitgliedschaft</h2><p id="approvalText">Deine Registrierung wartet auf die Freigabe durch den Admin.</p><button class="g full" id="approvalLogout">Abmelden</button></div></div>
 <div class="wrap">
 <div id="msg" class="card">Lade …</div>
 <div id="ptr"></div>
@@ -86,15 +87,14 @@ button.g,.btn.g{background:var(--sel);color:var(--tx);border:1px solid var(--bd)
  <div id="cr" class="hide"><div class="chead"><button class="g" id="cb" style="border:0;font-size:22px;padding:2px 10px">‹</button><div class="av s" id="cav"></div><div><b id="ctt"></b><div class="mu" id="csub" style="font-size:12px"></div></div></div>
   <div class="chat" id="ch"></div>
   <div class="cbar"><input id="ci" placeholder="Nachricht" style="flex:1;margin:0"><button id="cs">Senden</button></div></div></div>
+<div id="v-admin" class="hide"><h1 class="t">Admin-Bereich</h1><div class="card"><h2>Mitglieder verwalten</h2><div id="adminList" class="mu">Lade Mitglieder …</div></div></div>
 <div id="v-me" class="hide"><h1 class="t">Mein Profil</h1><div class="card">
  <div id="pav" class="av l"></div>
- <input id="photoInput" type="file" accept="image/*" class="hide">
- <button class="g full" id="photoBtn" type="button">📷 Profilbild auswählen</button>
  <div class="mu" id="pst" style="text-align:center;min-height:4px"></div>
  <input id="pn" placeholder="Name"><textarea id="pi" rows="3" placeholder="Profilinfo (Rolle, Telefon, …)"></textarea>
  <div class="mu" style="margin-top:10px">Spezialgebiete</div><div class="chips" id="sk"></div>
  <button class="full" id="ps">Profil speichern</button><button class="g full" id="lo">Abmelden</button></div></div>
-<div class="tabs"><button data-v="home" class="on"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>Home</button><button data-v="cal"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Kalender</button><button data-v="chat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg>Chat<span id="cbadge" class="hide" style="position:absolute;top:0;left:calc(50% + 6px);background:var(--ac);color:#fff;border-radius:10px;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px"></span></button><button data-v="me"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.5 4-7 8-7s7.3 2.5 8 7"/></svg>Profil</button></div>
+<div class="tabs"><button data-v="admin" id="adminTab" class="hide">Admin</button><button data-v="home" class="on"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>Home</button><button data-v="cal"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Kalender</button><button data-v="chat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg>Chat<span id="cbadge" class="hide" style="position:absolute;top:0;left:calc(50% + 6px);background:var(--ac);color:#fff;border-radius:10px;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px"></span></button><button data-v="me"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.5 4-7 8-7s7.3 2.5 8 7"/></svg>Profil</button></div>
 </div></div>
 <script src="config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -116,7 +116,7 @@ window.claude={use:async function(n){
  if(n==="db")return{collection:function(p){return fs.collection(p)},doc:function(p){return fs.doc(p)}};
  if(n==="user"){var u=await signed;return{id:async function(){return u.uid},canEdit:function(){return true}}}
  return null}};
-if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
+if("serviceWorker" in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.update().catch(function(){})})});}
 })();
 </script>
 <script>
@@ -128,18 +128,52 @@ function pad(n){return String(n).padStart(2,"0")}function key(y,m,d){return y+"-
 var db=null,user=null,uid=null;
 try{db=await claude.use("db");user=await claude.use("user");uid=user&&await user.id()}catch(e){}
 if(!db||!uid){$("msg").textContent="Verbindung fehlgeschlagen. Bitte Seite neu laden.";return}
+// Zugang erst nach Prüfung des Admin- oder Mitglieder-Dokuments gewähren.
+var authUser=firebase.auth().currentUser, admin=false, approved=false;
+var aRef=db.doc("admins/"+uid), mRef=db.doc("members/"+uid);
+try {
+ var aDoc=await aRef.get(); admin=aDoc.exists && aDoc.data().role==="admin";
+ if(!admin){
+  var mDoc=await mRef.get();
+  if(!mDoc.exists){
+   await mRef.set({email:authUser.email||"",approved:false,createdAt:Date.now()});
+  } else {approved=mDoc.data().approved===true;}
+ }
+} catch(e){$("msg").textContent="Zugriffsprüfung fehlgeschlagen. Prüfe die Firebase-Regeln und lade neu.";return}
+if(!admin&&!approved){
+ $("msg").classList.add("hide");$("approval").classList.remove("hide");
+ $("approvalLogout").onclick=function(){firebase.auth().signOut().then(function(){location.reload()})};
+ mRef.onSnapshot(function(s){if(s.exists&&s.data().approved===true)location.reload()},function(){});
+ return;
+}
+if(admin){
+ $("adminTab").classList.remove("hide");
+ db.collection("members").onSnapshot(function(snapshot){
+  var root=$("adminList");root.innerHTML="";
+  if(snapshot.empty){root.textContent="Noch keine Mitgliedsanfragen.";return}
+  snapshot.forEach(function(doc){
+   var data=doc.data(),row=document.createElement("div");row.className="job";
+   var title=document.createElement("b");title.textContent=data.email||"Mitglied";row.appendChild(title);
+   var status=document.createElement("div");status.className="mu";status.textContent=data.approved?"Freigegeben":"Wartet auf Freigabe";row.appendChild(status);
+   var btn=document.createElement("button");btn.className="g";btn.style.marginTop="8px";
+   btn.textContent=data.approved?"Zugang sperren":"Freigeben";
+   btn.onclick=async function(){btn.disabled=true;try{await db.doc("members/"+doc.id).update({approved:!data.approved})}catch(e){alert("Änderung nicht möglich.")}finally{btn.disabled=false}};
+   row.appendChild(btn);root.appendChild(row);
+  });
+ },function(){ $("adminList").textContent="Mitglieder konnten nicht geladen werden." });
+}
 $("msg").classList.add("hide");$("main").classList.remove("hide");
 var seen={};try{seen=JSON.parse(localStorage.getItem("seen:"+uid)||"{}")}catch(e){}
 var hs0=0;try{hs0=+localStorage.getItem("hs:"+uid)||0}catch(e){}
 function svHs(){try{localStorage.setItem("hs:"+uid,Date.now())}catch(e){}}
 document.addEventListener("visibilitychange",function(){if(document.hidden)svHs()});window.addEventListener("pagehide",svHs);
 var skills=[],room=null,jobs=[],profs={},chat=[],now=new Date(),Y=now.getFullYear(),M=now.getMonth(),sel=key(Y,M,now.getDate()),picks={},photo=null;
-function av(el,p){el.innerHTML="";if(p&&typeof p.photo==="string"&&p.photo.startsWith("data:image/")){var im=document.createElement("img");im.src=p.photo;im.alt="Profilbild";el.appendChild(im)}else{el.textContent=((p&&p.name)||"?").trim().charAt(0).toUpperCase()}}
+function av(el,p){el.innerHTML="";el.textContent=((p&&p.name)||"?").trim().charAt(0).toUpperCase()}
 function nm(u){var p=profs[u];return (p&&p.name)||"Teammitglied"}
-function canDel(j){try{return j.by===uid||user.canEdit()}catch(e){return j.by===uid}}
+function canDel(j){return j.by===uid||admin}
 db.collection("jobs").onSnapshot(function(s){jobs=s.docs.map(function(d){var x=d.data();x.id=d.id;return x});draw()},function(){});
 db.collection("chat").onSnapshot(function(s){chat=s.docs.map(function(d){return d.data()}).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat()},function(){});
-db.collection("profiles").onSnapshot(function(s){profs={};s.docs.forEach(function(d){profs[d.id]=d.data()});grp();draw();drawChat();if($("pn").dataset.l)av($("pav"),profs[uid]||{});if(!$("pn").dataset.l){$("pn").dataset.l=1;var m=profs[uid]||{};$("pn").value=m.name||"";$("pi").value=m.info||"";skills=m.skills||[];photo=m.photo||null;drawSk();av($("pav"),m)}},function(){});
+db.collection("profiles").onSnapshot(function(s){profs={};s.docs.forEach(function(d){profs[d.id]=d.data()});grp();draw();drawChat();if(!$("pn").dataset.l){$("pn").dataset.l=1;var m=profs[uid]||{};$("pn").value=m.name||"";$("pi").value=m.info||"";skills=m.skills||[];drawSk();av($("pav"),m)}},function(){});
 $("dw").innerHTML=["Mo","Di","Mi","Do","Fr","Sa","So"].map(function(d){return '<div class="dow">'+d+'</div>'}).join("");
 function draw(){
  markBusy();drawHome();$("ml").textContent=MN[M]+" "+Y;var f=(new Date(Y,M,1).getDay()+6)%7,n=new Date(Y,M+1,0).getDate(),tk=key(now.getFullYear(),now.getMonth(),now.getDate()),h="",has={};
@@ -156,7 +190,7 @@ function draw(){
   var c=document.createElement("div");c.className="chips";
   (j.gear||[]).forEach(function(g){var x=GEAR.filter(function(e){return e[0]===g})[0];if(x){var s=document.createElement("span");s.className="chip";s.textContent=x[2];c.appendChild(s)}});
   var w=document.createElement("span");w.className="mu";w.textContent="von "+nm(j.by);c.appendChild(w);r.appendChild(c);
-  {var x=document.createElement("button");x.className="g";x.textContent="Löschen";var arm=false;x.onclick=async function(){if(!arm){arm=true;x.textContent="Wirklich löschen?";x.style.color="var(--ac)";setTimeout(function(){arm=false;x.textContent="Löschen";x.style.color=""},3000);return}try{await db.doc("jobs/"+j.id).delete();jobs=jobs.filter(function(q){return q.id!==j.id});draw()}catch(e){arm=false;x.textContent="Löschen nicht möglich"}};r.appendChild(x)}
+  {if(canDel(j)){var x=document.createElement("button");x.className="g";x.textContent="Löschen";var arm=false;x.onclick=async function(){if(!arm){arm=true;x.textContent="Wirklich löschen?";x.style.color="var(--ac)";setTimeout(function(){arm=false;x.textContent="Löschen";x.style.color=""},3000);return}try{await db.doc("jobs/"+j.id).delete();jobs=jobs.filter(function(q){return q.id!==j.id});draw()}catch(e){arm=false;x.textContent="Löschen nicht möglich"}};r.appendChild(x)}}
   b.appendChild(r)});
 }
 function markBusy(){if(!$("gw").children.length)return;[].forEach.call($("gw").children,function(b){var g=b.dataset.g,u=jobs.filter(function(j){return j.date===sel&&(j.gear||[]).indexOf(g)>-1}),z=b.querySelector(".bz");if(!z){z=document.createElement("small");z.className="bz";b.appendChild(z)}z.textContent=u.length?"belegt: "+u[0].title:"";z.style.cssText="color:var(--ac);font-size:10px;line-height:1.1;"+(u.length?"":"display:none")})}
@@ -218,10 +252,8 @@ $("js").onclick=async function(){var t=$("jt").value.trim();if(!t)return;
  var g=Object.keys(picks).filter(function(k){return picks[k]});
  try{await db.doc("jobs/j"+Date.now()+Math.random().toString(36).slice(2,6)).set({date:sel,title:t,time:$("jm").value,note:$("jn").value.trim(),gear:g,by:uid})}catch(e){alert("Speichern nicht möglich – dir fehlt evtl. die Schreibberechtigung.");return}
  $("jt").value=$("jm").value=$("jn").value="";picks={};[].forEach.call($("gw").children,function(b){b.classList.remove("on")});$("form").classList.add("hide")};
-$("photoBtn").onclick=function(){$("photoInput").click()};
-$("photoInput").onchange=function(e){var file=e.target.files&&e.target.files[0];if(!file)return;if(!file.type.startsWith("image/")){alert("Bitte ein Bild auswählen.");return}if(file.size>12*1024*1024){alert("Bild ist zu groß (max. 12 MB).");return}var url=URL.createObjectURL(file),im=new Image();im.onload=function(){try{var c=document.createElement("canvas"),size=240,scale=Math.max(size/im.width,size/im.height);c.width=c.height=size;var ctx=c.getContext("2d");ctx.drawImage(im,(size-im.width*scale)/2,(size-im.height*scale)/2,im.width*scale,im.height*scale);photo=c.toDataURL("image/jpeg",.72);av($("pav"),{name:$("pn").value,photo:photo});$("pst").textContent="Bild ausgewählt – jetzt Profil speichern."}catch(err){alert("Bild konnte nicht verarbeitet werden.")}URL.revokeObjectURL(url)};im.onerror=function(){URL.revokeObjectURL(url);alert("Bild konnte nicht geöffnet werden.")};im.src=url};
-$("ps").onclick=async function(){try{await db.doc("profiles/"+uid).set({name:$("pn").value.trim(),info:$("pi").value.trim(),skills:skills,photo:photo||null});$("ps").textContent="Gespeichert ✓";setTimeout(function(){$("ps").textContent="Profil speichern"},1500)}catch(e){alert("Speichern nicht möglich.")}};
-[].forEach.call(document.querySelectorAll(".tabs button"),function(b){b.onclick=function(){["home","cal","grp","chat","me"].forEach(function(v){$("v-"+v).classList.toggle("hide",v!==b.dataset.v)});[].forEach.call(document.querySelectorAll(".tabs button"),function(x){x.classList.toggle("on",x===b)});drawChat()}});
+$("ps").onclick=async function(){try{await db.doc("profiles/"+uid).set({name:$("pn").value.trim(),info:$("pi").value.trim(),skills:skills});$("ps").textContent="Gespeichert ✓";setTimeout(function(){$("ps").textContent="Profil speichern"},1500)}catch(e){alert("Speichern nicht möglich.")}};
+[].forEach.call(document.querySelectorAll(".tabs button"),function(b){b.onclick=function(){["home","cal","grp","chat","me","admin"].forEach(function(v){$("v-"+v).classList.toggle("hide",v!==b.dataset.v)});[].forEach.call(document.querySelectorAll(".tabs button"),function(x){x.classList.toggle("on",x===b)});drawChat()}});
 var SK=["FPV-Piloting","Drohnenflug","Kamera","Schnitt","Ton","Fotografie","Planung","Licht"];
 function drawSk(){var b=$("sk");b.innerHTML="";SK.forEach(function(k){var x=document.createElement("button");x.className="g";x.textContent=k;x.style.cssText="padding:6px 12px;font-size:13px;border-radius:20px";if(skills.indexOf(k)>-1){x.style.background="var(--ink)";x.style.color="var(--inkx)"}x.onclick=function(){var i=skills.indexOf(k);if(i>-1)skills.splice(i,1);else skills.push(k);drawSk()};b.appendChild(x)})}
 var ptr=$("ptr"),ty=null,pull=0,rbusy=false;
