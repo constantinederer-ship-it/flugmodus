@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FLUGMODUS · Gold Plus</title>
+<title>FLUGMODUS 2.5 · Dynamic Edition Test</title>
 <style>
 :root{--bg:#f2f0ec;--card:rgba(255,255,255,.7);--tx:#1b1a18;--mu:#6e6a63;--ac:#9a7440;--ac2:#8b95a5;--acx:#fff;--bd:rgba(30,25,15,.10);--sel:rgba(30,25,15,.055);--ink:#1b1a18;--inkx:#fff;--sh:0 8px 32px rgba(60,45,20,.10);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -108,6 +108,40 @@ select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13p
 .theme-option.selected .theme-check{opacity:1;background:var(--ac)}
 @media(max-width:360px){.theme-picker{gap:7px}.theme-option{padding:9px 8px;font-size:12px;gap:7px}.theme-swatch{width:24px;height:24px;min-width:24px}}
 
+
+/* FLUGMODUS 2.5 Dynamic Edition – visual-only enhancement */
+:root{--dyn-overlay:rgba(245,248,252,.76);--dyn-sheen:rgba(255,255,255,.38)}
+:root[data-dynamic-mode="dark"]{--dyn-overlay:rgba(7,12,21,.58);--dyn-sheen:rgba(255,255,255,.075)}
+html{min-height:100%;background:var(--bg)}
+body{min-height:100vh;background:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-2;transform:none!important;animation:none!important;background:linear-gradient(180deg,var(--dyn-overlay) 0%,var(--dyn-overlay) 100%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221080%22%20height%3D%221920%22%20viewBox%3D%220%200%201080%201920%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23314866%22%2F%3E%3Cstop%20offset%3D%22.36%22%20stop-color%3D%22%23778ba0%22%2F%3E%3Cstop%20offset%3D%22.66%22%20stop-color%3D%22%23b7b8b1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2328394c%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22far%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23b6bdc5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%234d6274%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22mid%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23607b8b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231d3544%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22near%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23293e50%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23101c2c%22%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D%22blur%22%3E%3CfeGaussianBlur%20stdDeviation%3D%2245%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22url%28%23sky%29%22%20d%3D%22M0%200h1080v1920H0z%22%2F%3E%3Cellipse%20cx%3D%22740%22%20cy%3D%22530%22%20rx%3D%22420%22%20ry%3D%22120%22%20fill%3D%22%23f1d9b2%22%20opacity%3D%22.18%22%20filter%3D%22url%28%23blur%29%22%2F%3E%3Cpath%20d%3D%22M0%201110%20120%201000%20235%201040%20405%20850%20500%20930%20650%20735%20795%20920%20915%20815%201080%201020v900H0%22%20fill%3D%22url%28%23far%29%22%20opacity%3D%22.85%22%2F%3E%3Cpath%20d%3D%22m355%20900%2050-50%2058%2060-42-12-18%2020-20-27zM603%20790l47-55%2060%2080-39-18-23%2015-22-25zM882%20855l33-40%2045%2058-27-10-16%2012z%22%20fill%3D%22%23dbe1e3%22%20opacity%3D%22.73%22%2F%3E%3Cpath%20d%3D%22M0%201310%20160%201150%20280%201215%20450%201010%20580%201170%20710%201030%20840%201160%201000%20990%201080%201060v860H0%22%20fill%3D%22url%28%23mid%29%22%2F%3E%3Cpath%20d%3D%22M0%201490%20155%201370%20320%201450%20480%201280%20615%201400%20765%201210%20915%201350%201080%201240v680H0%22%20fill%3D%22url%28%23near%29%22%2F%3E%3Cpath%20d%3D%22M0%201660q200-100%20400-30t680-80v370H0%22%20fill%3D%22%230c1725%22%20opacity%3D%22.7%22%2F%3E%3C%2Fsvg%3E") center center / cover no-repeat;pointer-events:none}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 10% 3%,var(--glow1),transparent 54%),radial-gradient(ellipse at 95% 30%,var(--glow2),transparent 55%)}
+.wrap{max-width:600px;padding-bottom:140px}
+.hero{padding-top:24px}.hero h1{letter-spacing:.17em;font-size:15px;text-shadow:0 1px 16px rgba(0,0,0,.10)}
+.clock{padding:26px 5px 32px}#hc{font-size:clamp(72px,19vw,102px);font-weight:240;letter-spacing:-.065em;text-shadow:0 8px 35px rgba(0,0,0,.09)}#hg{font-size:17px;font-weight:650;color:var(--tx)}#hd{font-size:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:25px;box-shadow:0 14px 48px rgba(0,0,0,.13),inset 0 1px 0 var(--dyn-sheen);-webkit-backdrop-filter:blur(28px) saturate(140%);backdrop-filter:blur(28px) saturate(140%);margin-bottom:17px}
+.card h2{font-size:12px;letter-spacing:.14em}
+.home-weather-card{background:linear-gradient(125deg,var(--sel),var(--card) 68%);border-color:var(--bd)}
+.home-shortcuts button{border-radius:18px;background:var(--card);border:1px solid var(--bd);box-shadow:inset 0 1px 0 var(--dyn-sheen);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);min-height:77px;transition:transform .18s ease,background .18s ease}
+.home-shortcuts button:active{transform:scale(.96)}
+.tabs{width:calc(100% - 20px);max-width:548px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:7px 4px;border-radius:26px;background:var(--card);border:1px solid var(--bd);box-shadow:0 15px 45px rgba(0,0,0,.28),inset 0 1px 0 var(--dyn-sheen);-webkit-backdrop-filter:blur(32px) saturate(170%);backdrop-filter:blur(32px) saturate(170%)}
+.tabs button{border-radius:19px;transition:background .18s,color .18s}.tabs button.on{background:var(--sel);color:var(--ac)}
+.day.s,.w.on{box-shadow:0 5px 18px var(--glow1)}
+input,textarea,select{background:var(--card);border-color:var(--bd);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.mode-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 17px}
+.mode-option{min-width:0;background:var(--card);color:var(--tx);border:1px solid var(--bd);padding:12px 6px;border-radius:17px;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.mode-option span{font-size:21px}.mode-option.selected{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac);background:var(--sel)}
+.dynamic-label{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:7px}
+@media(max-width:390px){.card{padding:16px}.clock{padding:20px 4px 26px}.tabs{width:calc(100% - 10px)}.mode-option{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* 2.5 Hintergrundauswahl – getrennt von Firebase */
+body::before{background-image:linear-gradient(var(--dyn-overlay),var(--dyn-overlay)),var(--user-wallpaper)!important;background-position:center;background-size:cover;background-repeat:no-repeat}
+.wallpaper-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0}
+.wallpaper-choice{min-width:0;padding:5px;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:16px;font-size:12px}
+.wallpaper-choice.selected{border:2px solid var(--ac);padding:4px}
+.wallpaper-preview{display:block;height:104px;border-radius:11px;background-position:center;background-size:cover;margin-bottom:6px}
+.wallpaper-choice .wallpaper-preview.custom{display:flex;align-items:center;justify-content:center;font-size:27px;background:var(--sel)}
 </style><meta name="theme-color" content="#0a0b0d"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <div id="login" class="hide" style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto"><div class="card" style="width:100%;max-width:400px">
 <div class="hero" style="padding:0 0 14px"><h1>FLUGMODUS</h1></div>
@@ -122,7 +156,7 @@ select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13p
 <div id="main" class="hide">
 <div id="v-home"><div id="hf" class="hide"></div>
  <div class="hero"><h1><svg viewBox="0 0 512 512" width="28" height="28" style="vertical-align:middle;margin-right:10px"><rect width="512" height="512" rx="115" fill="#17191d"/><g stroke="var(--ac)" stroke-linecap="round" fill="none"><path d="M256 256L150 150M362 150L256 256M150 362L256 256M362 362L256 256" stroke-width="14"/><circle cx="150" cy="150" r="54" stroke-width="12"/><circle cx="362" cy="150" r="54" stroke-width="12"/><circle cx="150" cy="362" r="54" stroke-width="12"/><circle cx="362" cy="362" r="54" stroke-width="12"/></g><circle cx="256" cy="256" r="36" fill="var(--ac)"/></svg>FLUGMODUS</h1><p>Team-Planer</p></div>
- <div class="clock"><div id="hg" class="mu"></div><div id="hc"></div><div id="hd" class="mu"></div></div>
+ <div class="clock"><div class="dynamic-label">DYNAMIC EDITION · 2.5 TEST</div><div id="hg" class="mu"></div><div id="hc"></div><div id="hd" class="mu"></div></div>
  <div class="card home-weather-card"><div class="home-feature"><div><h2 style="margin-bottom:5px">Wetter vor Ort</h2><div class="mu" style="font-size:12px">Aktuelle Bedingungen</div></div><span style="font-size:24px">☀️</span></div>
  <div class="weather-main" style="margin-top:10px"><div id="weatherIcon" class="weather-icon">🌤️</div><div><div id="weatherValue" class="weather-temp">Wird geladen …</div><div id="weatherNote" class="mu" aria-live="polite">Wetterdienst wird kontaktiert</div></div></div>
  <div class="weather-place"><input id="weatherCity" aria-label="Ort für Wetter" value="Plauen" placeholder="Ort eingeben, z. B. Plauen"><button class="g" id="weatherBtn" type="button">Anzeigen</button></div></div>
@@ -157,6 +191,13 @@ select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13p
  <div class="mu" id="pst" style="text-align:center;min-height:4px"></div>
  <input id="pn" placeholder="Name"><textarea id="pi" rows="3" placeholder="Profilinfo (Rolle, Telefon, …)"></textarea>
  <div class="mu" style="margin-top:10px">Spezialgebiete</div><div class="chips" id="sk"></div>
+  <h2 style="margin-top:18px">Hell- / Dunkelmodus</h2>
+  <div class="mu">Wähle die Darstellung auf diesem Gerät. „Automatisch“ folgt der Systemeinstellung.</div>
+  <div class="mode-picker" id="modePicker" aria-label="Darstellungsmodus">
+    <button type="button" class="mode-option" data-mode-choice="auto" aria-pressed="true"><span>◐</span>Automatisch</button>
+    <button type="button" class="mode-option" data-mode-choice="light" aria-pressed="false"><span>☀️</span>Hell</button>
+    <button type="button" class="mode-option" data-mode-choice="dark" aria-pressed="false"><span>🌙</span>Dunkel</button>
+  </div>
   <h2 style="margin-top:18px">Design & Darstellung</h2><div class="mu">Wähle deine persönliche FLUGMODUS-Farbe. Akzente, Buttons, Widgets und Hintergrund passen sich gemeinsam an.</div>
   <div class="theme-picker" id="themePicker" aria-label="Persönliche Designfarbe">
    <button type="button" class="theme-option" data-theme-choice="gold" aria-pressed="true"><span class="theme-swatch" style="--swatch:#c49a5a"></span><span>Gold</span><span class="theme-check">✓</span></button>
@@ -168,6 +209,16 @@ select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13p
   </div>
   <select id="themeSelect" class="hide" aria-hidden="true" tabindex="-1"><option value="gold">Gold</option><option value="white">Weiß</option><option value="red">Rot</option><option value="blue">Blau</option><option value="pink">Rosa</option><option value="green">Grün</option></select>
   <div class="mu" style="font-size:12px">Die Auswahl wird mit „Profil speichern“ dauerhaft für dein Konto gespeichert.</div>
+<h2 style="margin-top:20px">Hintergrund</h2>
+<div class="mu">Wähle einen Standardhintergrund oder ein eigenes Foto aus deiner Galerie.</div>
+<div class="wallpaper-grid" id="wallpaperPicker">
+<button type="button" class="wallpaper-choice" data-wallpaper="mountains"><span class="wallpaper-preview" id="wallpaperMountains"></span>Berge</button>
+<button type="button" class="wallpaper-choice" data-wallpaper="night"><span class="wallpaper-preview" id="wallpaperNight"></span>Black &amp; Gold</button>
+<button type="button" class="wallpaper-choice" data-wallpaper="custom"><span class="wallpaper-preview custom" id="wallpaperCustom">＋</span>Mein Foto</button>
+</div>
+<input type="file" accept="image/*" id="wallpaperFile" class="hide" aria-label="Hintergrundbild aus Galerie auswählen">
+<button type="button" class="g full" id="wallpaperUpload">Foto aus Galerie auswählen</button>
+<div id="wallpaperStatus" class="mu" role="status" style="font-size:12px;margin-top:7px">Der Hintergrund wird nur auf diesem Gerät gespeichert.</div>
   <button class="full" id="ps">Profil speichern</button><button class="g full" id="lo">Abmelden</button></div></div>
 <div class="tabs"><button data-v="home" class="on"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg><span class="nav-label">Home</span></button><button data-v="admin" id="adminTab" class="hide"><span class="nav-icon">⚙️</span><span class="nav-label">Admin</span></button><button data-v="grp"><span class="nav-icon">👥</span><span class="nav-label">Team</span></button><button data-v="cal"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span class="nav-label">Kalender</span></button><button data-v="gear"><span class="nav-icon">📷</span><span class="nav-label">Technik</span></button><button data-v="stats"><span class="nav-icon">📊</span><span class="nav-label">Statistik</span></button><button data-v="chat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="nav-label">Chat</span><span id="cbadge" class="hide" style="position:absolute;top:0;left:calc(50% + 6px);background:var(--ac);color:#fff;border-radius:10px;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px"></span></button><button data-v="me"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.5 4-7 8-7s7.3 2.5 8 7"/></svg><span class="nav-label">Profil</span></button></div>
 </div></div>
@@ -265,6 +316,12 @@ document.addEventListener("visibilitychange",function(){if(document.hidden)svHs(
 var editingJob=null,equipment=[],equipmentReady=false;
 var skills=[],room=null,jobs=[],profs={},directory={},directoryReady=false,chat=[],groupChat=[],directChat=[],now=new Date(),Y=now.getFullYear(),M=now.getMonth(),sel=key(Y,M,now.getDate()),picks={},photo=null;
 var activeTheme="gold",jobPeoplePicks={};
+var dynamicMode="auto";
+try{dynamicMode=localStorage.getItem("flugmodus:dynamic-mode:"+uid)||"auto"}catch(e){}
+if(["auto","light","dark"].indexOf(dynamicMode)<0)dynamicMode="auto";
+function resolvedDark(){return dynamicMode==="dark"||(dynamicMode==="auto"&&!!(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches))}
+function setDynamicMode(mode){if(["auto","light","dark"].indexOf(mode)<0)return;dynamicMode=mode;try{localStorage.setItem("flugmodus:dynamic-mode:"+uid,mode)}catch(e){}applyTheme(activeTheme)}
+
 var THEMES={
  gold:{light:{bg:"#f4f2ed",card:"rgba(255,255,255,.88)",tx:"#171b22",mu:"#68707b",ac:"#b68a4d",ac2:"#a79a85",acx:"#ffffff",bd:"rgba(27,34,45,.09)",sel:"rgba(182,138,77,.11)",ink:"#b68a4d",inkx:"#ffffff",sh:"0 10px 30px rgba(70,53,28,.09)",glow1:"rgba(182,138,77,.18)",glow2:"rgba(167,154,133,.15)",glow3:"rgba(182,138,77,.10)"},dark:{bg:"#0d1015",card:"rgba(26,30,38,.90)",tx:"#f4f5f7",mu:"#a5aab3",ac:"#e3c498",ac2:"#b68a4d",acx:"#1b1a18",bd:"rgba(255,255,255,.09)",sel:"rgba(227,196,152,.12)",ink:"#e3c498",inkx:"#1b1a18",sh:"0 12px 36px rgba(0,0,0,.24)",glow1:"rgba(227,196,152,.20)",glow2:"rgba(125,135,148,.18)",glow3:"rgba(227,196,152,.10)"}},
  blue:{light:{bg:"#eaf3ff",card:"rgba(255,255,255,.90)",tx:"#14263e",mu:"#5d718b",ac:"#287ed1",ac2:"#77b6f5",acx:"#ffffff",bd:"rgba(40,126,209,.16)",sel:"rgba(40,126,209,.11)",ink:"#287ed1",inkx:"#ffffff",sh:"0 10px 30px rgba(35,91,150,.10)",glow1:"rgba(59,145,230,.22)",glow2:"rgba(123,182,245,.18)",glow3:"rgba(40,126,209,.13)"},dark:{bg:"#081321",card:"rgba(17,34,56,.90)",tx:"#edf5ff",mu:"#a5b8d0",ac:"#5ba8ff",ac2:"#91c5ff",acx:"#07182a",bd:"rgba(145,197,255,.17)",sel:"rgba(72,145,225,.15)",ink:"#4f9df2",inkx:"#06182b",sh:"0 12px 36px rgba(0,0,0,.30)",glow1:"rgba(38,126,220,.28)",glow2:"rgba(75,166,255,.19)",glow3:"rgba(28,91,168,.17)"}},
@@ -274,13 +331,18 @@ var THEMES={
  white:{light:{bg:"#f3f6fa",card:"rgba(255,255,255,.94)",tx:"#202733",mu:"#6b7481",ac:"#aab5c4",ac2:"#d6dde7",acx:"#202733",bd:"rgba(70,86,108,.14)",sel:"rgba(170,181,196,.16)",ink:"#d4dce7",inkx:"#202733",sh:"0 10px 30px rgba(55,70,95,.08)",glow1:"rgba(210,220,235,.25)",glow2:"rgba(175,190,210,.17)",glow3:"rgba(235,240,248,.20)"},dark:{bg:"#11151c",card:"rgba(32,38,48,.91)",tx:"#f6f8fc",mu:"#b2bbc9",ac:"#e1e7f0",ac2:"#b7c2d3",acx:"#1a2230",bd:"rgba(225,231,240,.18)",sel:"rgba(225,231,240,.13)",ink:"#d5deea",inkx:"#17202d",sh:"0 12px 36px rgba(0,0,0,.28)",glow1:"rgba(210,222,240,.19)",glow2:"rgba(140,160,190,.16)",glow3:"rgba(225,231,240,.10)"}}
 };
 function applyTheme(name){
- var key=THEMES[name]?name:"gold",dark=!!(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches),t=THEMES[key][dark?"dark":"light"],root=document.documentElement;
+ var key=THEMES[name]?name:"gold",dark=resolvedDark(),t=THEMES[key][dark?"dark":"light"],root=document.documentElement;
  activeTheme=key;
  Object.keys(t).forEach(function(k){root.style.setProperty("--"+k,t[k])});
  root.style.colorScheme=dark?"dark":"light";
+ root.setAttribute("data-dynamic-mode",dark?"dark":"light");
+ root.setAttribute("data-theme",dark?"dark":"light");
+ var mp=$("modePicker");if(mp){[].forEach.call(mp.querySelectorAll("[data-mode-choice]"),function(b){var on=b.dataset.modeChoice===dynamicMode;b.classList.toggle("selected",on);b.setAttribute("aria-pressed",on?"true":"false")})}
+ var meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=t.bg;
  if($("themeSelect"))$("themeSelect").value=activeTheme;
  var picker=$("themePicker");if(picker){[].forEach.call(picker.querySelectorAll("[data-theme-choice]"),function(b){var on=b.dataset.themeChoice===activeTheme;b.classList.toggle("selected",on);b.setAttribute("aria-pressed",on?"true":"false")})}
 }
+applyTheme(activeTheme);
 function showView(v){["home","cal","grp","chat","me","admin","gear","stats"].forEach(function(x){var el=$("v-"+x);if(el)el.classList.toggle("hide",x!==v)});[].forEach.call(document.querySelectorAll(".tabs button"),function(x){x.classList.toggle("on",x.dataset.v===v)});drawChat();window.scrollTo(0,0);}
 function av(el,p){el.innerHTML="";if(p&&typeof p.photo==="string"&&p.photo.startsWith("data:image/")){var im=document.createElement("img");im.src=p.photo;im.alt="Profilbild";el.appendChild(im)}else{el.textContent=((p&&p.name)||"?").trim().charAt(0).toUpperCase()}}
 function nm(u){var p=profs[u],d=directory[u];return (p&&p.name)||(d&&d.name)||"Teammitglied"}
@@ -396,6 +458,7 @@ $("photoInput").onchange=function(e){var file=e.target.files&&e.target.files[0];
  im.onerror=function(){URL.revokeObjectURL(url);alert("Foto konnte nicht geöffnet werden.")};im.src=url;
 };
 $("themeSelect").addEventListener("change",function(){applyTheme(this.value)});
+[].forEach.call(document.querySelectorAll("#modePicker [data-mode-choice]"),function(b){b.onclick=function(){setDynamicMode(b.dataset.modeChoice)}});
 [].forEach.call(document.querySelectorAll("#themePicker [data-theme-choice]"),function(b){b.onclick=function(){applyTheme(b.dataset.themeChoice)}});
 if(window.matchMedia){var themeMedia=window.matchMedia("(prefers-color-scheme: dark)");if(themeMedia.addEventListener)themeMedia.addEventListener("change",function(){applyTheme(activeTheme)});else if(themeMedia.addListener)themeMedia.addListener(function(){applyTheme(activeTheme)})}
 $("ps").onclick=async function(){try{await db.doc("profiles/"+uid).set({name:$("pn").value.trim(),info:$("pi").value.trim(),skills:skills,photo:photo||null,theme:activeTheme},{merge:true});$("pst").textContent="Profil gespeichert.";$("ps").textContent="Gespeichert ✓";setTimeout(function(){$("ps").textContent="Profil speichern"},1500)}catch(e){alert("Speichern nicht möglich: "+(e.message||"Unbekannter Fehler"))}};
@@ -438,4 +501,41 @@ $("cb").onclick=function(){room=null;$("cr").classList.add("hide");$("cl").class
 drawSk();
 renderJobPeopleChoices();draw();grp();drawChat();renderEquipment();renderStats();
 })();
-</script></body></html>
+</script>
+<script>
+(function(){
+"use strict";
+var standard={mountains:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221080%22%20height%3D%221920%22%20viewBox%3D%220%200%201080%201920%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23070e1a%22%2F%3E%3Cstop%20offset%3D%22.6%22%20stop-color%3D%22%23263746%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23101b29%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22peak%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23536879%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23182937%22%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D%22fog%22%3E%3CfeGaussianBlur%20stdDeviation%3D%2260%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20width%3D%221080%22%20height%3D%221920%22%20fill%3D%22url%28%23sky%29%22%2F%3E%3Ccircle%20cx%3D%22810%22%20cy%3D%22350%22%20r%3D%2295%22%20fill%3D%22%23d2d7d6%22%20opacity%3D%22.26%22%2F%3E%3Cpath%20d%3D%22M0%201170%20170%20930%20310%201060%20525%20710%20690%20990%20860%20810%201080%201090V1920H0%22%20fill%3D%22%2341566a%22%2F%3E%3Cpath%20d%3D%22m430%20835%2095-125%20100%20160-62-27-42%2020-39-35zM805%20895l55-85%2070%20100-48-24-28%2017z%22%20fill%3D%22%239ca9b0%22%20opacity%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M0%201320%20220%201110%20410%201260%20620%20940%20810%201180%20980%201030%201080%201160V1920H0%22%20fill%3D%22url%28%23peak%29%22%2F%3E%3Cellipse%20cx%3D%22500%22%20cy%3D%221190%22%20rx%3D%22800%22%20ry%3D%2295%22%20fill%3D%22%23c0ced3%22%20opacity%3D%22.24%22%20filter%3D%22url%28%23fog%29%22%2F%3E%3Cpath%20d%3D%22M0%201560%20160%201400%20330%201510%20570%201270%20790%201460%20990%201310%201080%201380V1920H0%22%20fill%3D%22%230e1b29%22%2F%3E%3Cellipse%20cx%3D%22550%22%20cy%3D%221470%22%20rx%3D%22900%22%20ry%3D%2280%22%20fill%3D%22%23b8c6c9%22%20opacity%3D%22.17%22%20filter%3D%22url%28%23fog%29%22%2F%3E%3Cpath%20d%3D%22M0%201760Q250%201640%20500%201700T1080%201600V1920H0%22%20fill%3D%22%2307121e%22%2F%3E%3C%2Fsvg%3E',night:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221080%22%20height%3D%221920%22%20viewBox%3D%220%200%201080%201920%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23050507%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%2317130f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23050507%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22gold%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%234b3213%22%2F%3E%3Cstop%20offset%3D%22.35%22%20stop-color%3D%22%23d9aa58%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23f5d995%22%2F%3E%3Cstop%20offset%3D%22.8%22%20stop-color%3D%22%239e6a2b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23392711%22%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D%22blur%22%3E%3CfeGaussianBlur%20stdDeviation%3D%2242%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20width%3D%221080%22%20height%3D%221920%22%20fill%3D%22url%28%23bg%29%22%2F%3E%3Cellipse%20cx%3D%22900%22%20cy%3D%22600%22%20rx%3D%22340%22%20ry%3D%22520%22%20fill%3D%22%239d722b%22%20opacity%3D%22.12%22%20filter%3D%22url%28%23blur%29%22%2F%3E%3Cellipse%20cx%3D%22180%22%20cy%3D%221460%22%20rx%3D%22310%22%20ry%3D%22440%22%20fill%3D%22%23ad7c30%22%20opacity%3D%22.12%22%20filter%3D%22url%28%23blur%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22url%28%23gold%29%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-180%201340%20C250%20800%20510%201620%201190%20590%22%20stroke-width%3D%2217%22%20opacity%3D%22.55%22%2F%3E%3Cpath%20d%3D%22M-140%201410%20C250%20900%20580%201680%201210%20720%22%20stroke-width%3D%227%22%20opacity%3D%22.8%22%2F%3E%3Cpath%20d%3D%22M-180%201500%20C320%201020%20540%201730%201190%20820%22%20stroke-width%3D%223%22%20opacity%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M-90%201540%20C360%201120%20700%201720%201210%201020%22%20stroke-width%3D%222%22%20opacity%3D%22.5%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23e6c484%22%20opacity%3D%22.6%22%3E%3Ccircle%20cx%3D%22860%22%20cy%3D%22430%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22820%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22940%22%20cy%3D%221290%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%221620%22%20r%3D%222%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'};
+var storageKey="flugmodus25_wallpaper",photoKey="flugmodus25_wallpaper_photo";
+var current="mountains",custom=null;
+try{current=localStorage.getItem(storageKey)||"mountains";custom=localStorage.getItem(photoKey)}catch(e){}
+if(!standard[current]&&current!=="custom")current="mountains";
+function render(){
+ var url=current==="custom"&&custom?custom:standard[current]||standard.mountains;
+ document.documentElement.style.setProperty("--user-wallpaper",'url("'+url+'")');
+ document.querySelectorAll("[data-wallpaper]").forEach(function(b){var selected=b.dataset.wallpaper===current;b.classList.toggle("selected",selected);b.setAttribute("aria-pressed",String(selected))});
+ var p=document.getElementById("wallpaperCustom");if(p&&custom){p.textContent="";p.style.backgroundImage='url("'+custom+'")';p.style.backgroundSize="cover";p.style.backgroundPosition="center"}
+}
+function choose(which){if(which==="custom"&&!custom){document.getElementById("wallpaperFile").click();return}current=which;try{localStorage.setItem(storageKey,current)}catch(e){}render()}
+document.getElementById("wallpaperMountains").style.backgroundImage='url("'+standard.mountains+'")';
+document.getElementById("wallpaperNight").style.backgroundImage='url("'+standard.night+'")';
+document.querySelectorAll("[data-wallpaper]").forEach(function(b){b.addEventListener("click",function(){choose(b.dataset.wallpaper)})});
+document.getElementById("wallpaperUpload").addEventListener("click",function(){document.getElementById("wallpaperFile").click()});
+document.getElementById("wallpaperFile").addEventListener("change",function(ev){
+ var file=ev.target.files&&ev.target.files[0];if(!file)return;
+ var status=document.getElementById("wallpaperStatus");
+ if(!file.type.startsWith("image/")){status.textContent="Bitte ein Bild auswählen.";return}
+ var url=URL.createObjectURL(file),img=new Image();
+ img.onload=function(){
+  try{var c=document.createElement("canvas"),max=1100,scale=Math.min(1,max/Math.max(img.width,img.height));c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+   var data=c.toDataURL("image/jpeg",.72);localStorage.setItem(photoKey,data);custom=data;choose("custom");status.textContent="Dein Hintergrund wurde auf diesem Gerät gespeichert.";
+  }catch(e){status.textContent="Das Foto konnte nicht gespeichert werden. Bitte ein kleineres Bild wählen."}
+  URL.revokeObjectURL(url)
+ };
+ img.onerror=function(){URL.revokeObjectURL(url);status.textContent="Das Bild konnte nicht geöffnet werden."};img.src=url;
+ ev.target.value="";
+});
+render();
+})();
+</script>
+</body></html>
