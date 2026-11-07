@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FLUGMODUS 2.4 · Gold Plus Test</title>
+<title>FLUGMODUS · Gold Plus</title>
 <style>
 :root{--bg:#f2f0ec;--card:rgba(255,255,255,.7);--tx:#1b1a18;--mu:#6e6a63;--ac:#9a7440;--ac2:#8b95a5;--acx:#fff;--bd:rgba(30,25,15,.10);--sel:rgba(30,25,15,.055);--ink:#1b1a18;--inkx:#fff;--sh:0 8px 32px rgba(60,45,20,.10);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -98,11 +98,6 @@ button,.btn{transition:background .15s,border-color .15s,transform .15s}button:a
 .home-shortcuts button span{display:block;font-size:23px;margin-bottom:5px}
 .team-search{margin:0 0 14px}.team-empty{padding:14px 0;color:var(--mu)}
 select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13px;background:var(--sel);color:var(--tx);font:inherit;font-size:16px;margin:5px 0;outline:none}
-.pro-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.pro-tile{border:1px solid var(--bd);background:var(--sel);border-radius:18px;padding:15px;min-width:0}
-.pro-tile b{display:block;margin-bottom:5px}.pro-tile .mu{font-size:12px}
-.pro-mark{color:var(--ac);font-size:11px;font-weight:800;letter-spacing:.16em}
-
 /* FLUGMODUS 2.4: persönliche Vollfarb-Themes */
 .theme-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0 8px}
 .theme-option{width:100%;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);font-size:14px;font-weight:650;text-align:left;box-shadow:none}
@@ -132,7 +127,7 @@ select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13p
  <div class="weather-main" style="margin-top:10px"><div id="weatherIcon" class="weather-icon">🌤️</div><div><div id="weatherValue" class="weather-temp">Wird geladen …</div><div id="weatherNote" class="mu" aria-live="polite">Wetterdienst wird kontaktiert</div></div></div>
  <div class="weather-place"><input id="weatherCity" aria-label="Ort für Wetter" value="Plauen" placeholder="Ort eingeben, z. B. Plauen"><button class="g" id="weatherBtn" type="button">Anzeigen</button></div></div>
  <div class="card"><h2>Nächste Aufträge</h2><div id="hn"></div></div>
- <div class="card"><h2>Schnellzugriff</h2><div class="home-shortcuts"><button data-go="cal"><span>📅</span>Kalender</button><button data-go="grp"><span>👥</span>Team</button><button data-go="gear"><span>📷</span>Technik</button><button data-go="chat"><span>💬</span>Chat</button><button data-go="stats"><span>📊</span>Statistik</button><button data-go="me"><span>👤</span>Profil</button><button id="proShortcut" class="hide" data-go="pro"><span>✦</span>FLUGMODUS PRO</button></div></div>
+ <div class="card"><h2>Schnellzugriff</h2><div class="home-shortcuts"><button data-go="cal"><span>📅</span>Kalender</button><button data-go="grp"><span>👥</span>Team</button><button data-go="gear"><span>📷</span>Technik</button><button data-go="chat"><span>💬</span>Chat</button><button data-go="stats"><span>📊</span>Statistik</button><button data-go="me"><span>👤</span>Profil</button></div></div>
 </div>
 <div id="v-cal" class="hide">
  <div class="hero"><h1><svg viewBox="0 0 512 512" width="28" height="28" style="vertical-align:middle;margin-right:10px"><rect width="512" height="512" rx="115" fill="#17191d"/><g stroke="var(--ac)" stroke-linecap="round" fill="none"><path d="M256 256L150 150M362 150L256 256M150 362L256 256M362 362L256 256" stroke-width="14"/><circle cx="150" cy="150" r="54" stroke-width="12"/><circle cx="362" cy="150" r="54" stroke-width="12"/><circle cx="150" cy="362" r="54" stroke-width="12"/><circle cx="362" cy="362" r="54" stroke-width="12"/></g><circle cx="256" cy="256" r="36" fill="var(--ac)"/></svg>FLUGMODUS</h1><p>Team-Planer</p></div>
@@ -155,7 +150,6 @@ select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13p
   <div class="chat" id="ch"></div>
   <div class="cbar"><input id="ci" placeholder="Nachricht" style="flex:1;margin:0"><button id="cs">Senden</button></div></div></div>
 <div id="v-admin" class="hide"><h1 class="t">Admin-Bereich</h1><div class="card"><h2>Mitglieder verwalten</h2><div id="adminList" class="mu">Lade Mitglieder …</div></div></div>
-<div id="v-pro" class="hide"><h1 class="t">FLUGMODUS PRO</h1><div class="card"><div class="pro-mark">ERWEITERTER TEAM-BEREICH</div><p class="mu">Hier findest du die zusätzlichen Werkzeuge für ausgewählte Teammitglieder. Die Bereiche werden schrittweise freigeschaltet.</p><div class="pro-grid"><div class="pro-tile"><b>🎬 Drehplan</b><div class="mu">Abläufe und Drehtage organisieren.</div></div><div class="pro-tile"><b>📁 Projekte</b><div class="mu">Projekte und Produktionsstände verwalten.</div></div><div class="pro-tile"><b>☑️ Aufgaben</b><div class="mu">Aufgaben im Team verteilen.</div></div><div class="pro-tile"><b>🗓️ Verfügbarkeit</b><div class="mu">Verfügbare Teamzeiten planen.</div></div><div class="pro-tile"><b>📷 Technikplanung</b><div class="mu">Technik für Produktionen vorbereiten.</div></div><div class="pro-tile"><b>🗂️ Mediathek</b><div class="mu">Material und Medien sammeln.</div></div><div class="pro-tile"><b>✅ Freigaben</b><div class="mu">Interne Freigaben koordinieren.</div></div><div class="pro-tile"><b>📍 Drehorte</b><div class="mu">Orte für Produktionen organisieren.</div></div></div><p class="mu" style="margin:14px 0 0">Hinweis: Das ist zunächst das PRO-Menü. Die einzelnen Werkzeuge werden erst nach ihrer jeweiligen Entwicklung und Sicherheitsprüfung aktiv.</p><button class="g full" id="proBackHome" type="button">Zurück zur Übersicht</button></div></div>
 <div id="v-me" class="hide"><h1 class="t">Mein Profil</h1><div class="card">
  <div id="pav" class="av l" role="button" tabindex="0" aria-label="Profilbild auswählen" style="cursor:pointer"></div>
  <input id="photoInput" type="file" accept="image/*" class="hide">
@@ -174,7 +168,6 @@ select{width:100%;padding:13px 16px;border:1px solid var(--bd);border-radius:13p
   </div>
   <select id="themeSelect" class="hide" aria-hidden="true" tabindex="-1"><option value="gold">Gold</option><option value="white">Weiß</option><option value="red">Rot</option><option value="blue">Blau</option><option value="pink">Rosa</option><option value="green">Grün</option></select>
   <div class="mu" style="font-size:12px">Die Auswahl wird mit „Profil speichern“ dauerhaft für dein Konto gespeichert.</div>
-  <button class="g full hide" id="proProfileBtn" type="button">FLUGMODUS PRO öffnen</button>
   <button class="full" id="ps">Profil speichern</button><button class="g full" id="lo">Abmelden</button></div></div>
 <div class="tabs"><button data-v="home" class="on"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg><span class="nav-label">Home</span></button><button data-v="admin" id="adminTab" class="hide"><span class="nav-icon">⚙️</span><span class="nav-label">Admin</span></button><button data-v="grp"><span class="nav-icon">👥</span><span class="nav-label">Team</span></button><button data-v="cal"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span class="nav-label">Kalender</span></button><button data-v="gear"><span class="nav-icon">📷</span><span class="nav-label">Technik</span></button><button data-v="stats"><span class="nav-icon">📊</span><span class="nav-label">Statistik</span></button><button data-v="chat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="nav-label">Chat</span><span id="cbadge" class="hide" style="position:absolute;top:0;left:calc(50% + 6px);background:var(--ac);color:#fff;border-radius:10px;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px"></span></button><button data-v="me"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.5 4-7 8-7s7.3 2.5 8 7"/></svg><span class="nav-label">Profil</span></button></div>
 </div></div>
@@ -256,11 +249,7 @@ if(admin){
    btn.textContent=data.approved?"Zugang sperren":"Freigeben";
    btn.onclick=async function(){btn.disabled=true;try{await db.doc("members/"+doc.id).update({approved:!data.approved,proApproved:data.approved?false:(data.proApproved===true)})}catch(e){alert("Änderung nicht möglich.")}finally{btn.disabled=false}};
     row.appendChild(btn);
-    var proBtn=document.createElement("button");proBtn.className="g";proBtn.style.marginTop="8px";proBtn.style.marginLeft="8px";
-    proBtn.textContent=data.approved?(data.proApproved===true?"PRO-Zugang entziehen":"PRO freigeben"):"PRO erst nach Mitgliedsfreigabe";
-    proBtn.disabled=!data.approved;
-    proBtn.onclick=async function(){if(!admin||!data.approved)return;proBtn.disabled=true;try{await db.doc("members/"+doc.id).update({proApproved:!(data.proApproved===true)})}catch(e){alert("PRO-Freigabe konnte nicht geändert werden. Bitte Firebase-Regeln prüfen.")}finally{proBtn.disabled=false}};
-    row.appendChild(proBtn);root.appendChild(row);
+     root.appendChild(row);
   });
  },function(){ $("adminList").textContent="Mitglieder konnten nicht geladen werden." });
 }
@@ -268,7 +257,7 @@ if(!admin)document.querySelector(".tabs").style.gridTemplateColumns="repeat(7,mi
 // Fehlende eigene Profile für freigegebene Mitglieder automatisch anlegen.
 // Bestehende Profile werden niemals überschrieben.
 try{var selfProfile=await db.doc("profiles/"+uid).get();if(!selfProfile.exists){await db.doc("profiles/"+uid).set({name:(authUser.email||"Teammitglied").split("@")[0],info:"",skills:[],photo:null})}}catch(e){console.warn("Profil konnte nicht angelegt werden:",e)}
-$("msg").classList.add("hide");$("main").classList.remove("hide");updateProUI();
+$("msg").classList.add("hide");$("main").classList.remove("hide");
 var seen={};try{seen=JSON.parse(localStorage.getItem("seen:"+uid)||"{}")}catch(e){}
 var hs0=0;try{hs0=+localStorage.getItem("hs:"+uid)||0}catch(e){}
 function svHs(){try{localStorage.setItem("hs:"+uid,Date.now())}catch(e){}}
@@ -292,8 +281,7 @@ function applyTheme(name){
  if($("themeSelect"))$("themeSelect").value=activeTheme;
  var picker=$("themePicker");if(picker){[].forEach.call(picker.querySelectorAll("[data-theme-choice]"),function(b){var on=b.dataset.themeChoice===activeTheme;b.classList.toggle("selected",on);b.setAttribute("aria-pressed",on?"true":"false")})}
 }
-function updateProUI(){var allowed=!!proApproved;$("proShortcut").classList.toggle("hide",!allowed);$("proProfileBtn").classList.toggle("hide",!allowed);}
-function showView(v){if(v==="pro"&&!proApproved){alert("Dieser Bereich ist nur für vom Admin freigegebene Mitglieder verfügbar.");return;}["home","cal","grp","chat","me","admin","gear","stats","pro"].forEach(function(x){var el=$("v-"+x);if(el)el.classList.toggle("hide",x!==v)});[].forEach.call(document.querySelectorAll(".tabs button"),function(x){x.classList.toggle("on",x.dataset.v===v)});drawChat();window.scrollTo(0,0);}
+function showView(v){["home","cal","grp","chat","me","admin","gear","stats"].forEach(function(x){var el=$("v-"+x);if(el)el.classList.toggle("hide",x!==v)});[].forEach.call(document.querySelectorAll(".tabs button"),function(x){x.classList.toggle("on",x.dataset.v===v)});drawChat();window.scrollTo(0,0);}
 function av(el,p){el.innerHTML="";if(p&&typeof p.photo==="string"&&p.photo.startsWith("data:image/")){var im=document.createElement("img");im.src=p.photo;im.alt="Profilbild";el.appendChild(im)}else{el.textContent=((p&&p.name)||"?").trim().charAt(0).toUpperCase()}}
 function nm(u){var p=profs[u],d=directory[u];return (p&&p.name)||(d&&d.name)||"Teammitglied"}
 function teamIds(){if(!directoryReady)return Object.keys(profs);var ids=Object.keys(directory).filter(function(id){return directory[id].approved===true});if(admin&&!ids.includes(uid))ids.push(uid);return ids}
@@ -412,9 +400,6 @@ $("themeSelect").addEventListener("change",function(){applyTheme(this.value)});
 if(window.matchMedia){var themeMedia=window.matchMedia("(prefers-color-scheme: dark)");if(themeMedia.addEventListener)themeMedia.addEventListener("change",function(){applyTheme(activeTheme)});else if(themeMedia.addListener)themeMedia.addListener(function(){applyTheme(activeTheme)})}
 $("ps").onclick=async function(){try{await db.doc("profiles/"+uid).set({name:$("pn").value.trim(),info:$("pi").value.trim(),skills:skills,photo:photo||null,theme:activeTheme},{merge:true});$("pst").textContent="Profil gespeichert.";$("ps").textContent="Gespeichert ✓";setTimeout(function(){$("ps").textContent="Profil speichern"},1500)}catch(e){alert("Speichern nicht möglich: "+(e.message||"Unbekannter Fehler"))}};
 [].forEach.call(document.querySelectorAll(".tabs button"),function(b){b.onclick=function(){showView(b.dataset.v)}});
-$("proShortcut").onclick=function(){showView("pro")};
-$("proProfileBtn").onclick=function(){showView("pro")};
-$("proBackHome").onclick=function(){showView("home")};
 var SK=["FPV-Piloting","Drohnenflug","Kamera","Schnitt","Ton","Fotografie","Planung","Licht"];
 function drawSk(){var b=$("sk");b.innerHTML="";SK.forEach(function(k){var x=document.createElement("button");x.className="g";x.textContent=k;x.style.cssText="padding:6px 12px;font-size:13px;border-radius:20px";if(skills.indexOf(k)>-1){x.style.background="var(--ink)";x.style.color="var(--inkx)"}x.onclick=function(){var i=skills.indexOf(k);if(i>-1)skills.splice(i,1);else skills.push(k);drawSk()};b.appendChild(x)})}
 var ptr=$("ptr"),ty=null,pull=0,rbusy=false;
