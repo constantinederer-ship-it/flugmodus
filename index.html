@@ -259,16 +259,19 @@ if(!db||!uid){$("msg").textContent="Verbindung fehlgeschlagen. Bitte Seite neu l
 // Zugang erst nach Prüfung des Admin- oder Mitglieder-Dokuments gewähren.
 var authUser=firebase.auth().currentUser, admin=false, approved=false, proApproved=false;
 var aRef=db.doc("admins/"+uid), mRef=db.doc("members/"+uid);
+var accessStep="Adminstatus lesen";
 try {
  var aDoc=await aRef.get(); admin=aDoc.exists && aDoc.data().role==="admin";
  proApproved=admin;
  if(!admin){
+  accessStep="Mitgliedsstatus lesen";
   var mDoc=await mRef.get();
   if(!mDoc.exists){
-   await mRef.set({email:authUser.email||"",approved:false,proApproved:false,createdAt:Date.now()});
+   accessStep="Mitgliedsantrag erstellen";
+   await mRef.set({email:authUser.email||"",approved:false,createdAt:Date.now()});
   } else {approved=mDoc.data().approved===true;proApproved=mDoc.data().proApproved===true;}
  }
-} catch(e){$("msg").textContent="Zugriffsprüfung fehlgeschlagen. Prüfe die Firebase-Regeln und lade neu.";return}
+} catch(e){console.error("FLUGMODUS Zugriffsprüfung:",accessStep,e);$("msg").textContent="Zugriffsprüfung fehlgeschlagen bei: "+accessStep+". Fehlercode: "+(e&&e.code||"unbekannt")+". Bitte diesen Text mitteilen.";return}
 if(!admin&&!approved){
  $("msg").classList.add("hide");$("approval").classList.remove("hide");
  $("approvalLogout").onclick=function(){firebase.auth().signOut().then(function(){location.reload()})};
@@ -298,7 +301,7 @@ if(admin){
    var status=document.createElement("div");status.className="mu";status.textContent=data.approved?"Freigegeben":"Wartet auf Freigabe";row.appendChild(status);
    var btn=document.createElement("button");btn.className="g";btn.style.marginTop="8px";
    btn.textContent=data.approved?"Zugang sperren":"Freigeben";
-   btn.onclick=async function(){btn.disabled=true;try{await db.doc("members/"+doc.id).update({approved:!data.approved,proApproved:data.approved?false:(data.proApproved===true)})}catch(e){alert("Änderung nicht möglich.")}finally{btn.disabled=false}};
+   btn.onclick=async function(){btn.disabled=true;try{await db.doc("members/"+doc.id).update({approved:!data.approved})}catch(e){alert("Änderung nicht möglich.")}finally{btn.disabled=false}};
     row.appendChild(btn);
      root.appendChild(row);
   });
