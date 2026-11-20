@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FLUGMODUS 2.5 · Dynamic Edition Test</title>
+<title>FLUGMODUS 2.6 · Kostenlose Mitteilungen Test</title>
 <style>
 :root{--bg:#f2f0ec;--card:rgba(255,255,255,.7);--tx:#1b1a18;--mu:#6e6a63;--ac:#9a7440;--ac2:#8b95a5;--acx:#fff;--bd:rgba(30,25,15,.10);--sel:rgba(30,25,15,.055);--ink:#1b1a18;--inkx:#fff;--sh:0 8px 32px rgba(60,45,20,.10);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -142,6 +142,13 @@ body::before{background-image:linear-gradient(var(--dyn-overlay),var(--dyn-overl
 .wallpaper-choice.selected{border:2px solid var(--ac);padding:4px}
 .wallpaper-preview{display:block;height:104px;border-radius:11px;background-position:center;background-size:cover;margin-bottom:6px}
 .wallpaper-choice .wallpaper-preview.custom{display:flex;align-items:center;justify-content:center;font-size:27px;background:var(--sel)}
+/* 2.6: Benachrichtigungen nur aus bestehenden Daten, ohne Cloud Functions */
+.fm-notify-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.fm-bell{position:relative;width:38px;height:38px;min-width:38px;min-height:38px;display:flex;align-items:center;justify-content:center;border:0;border-radius:12px;background:transparent;color:var(--tx);padding:6px;box-shadow:none}.fm-bell svg{width:21px;height:21px;display:block;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.fm-badge{position:absolute;right:-3px;top:-3px;min-width:16px;height:16px;padding:0 3px;border-radius:20px;background:var(--tx);color:var(--bg);font-size:10px;line-height:16px}
+.fm-notice{display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--bd);cursor:pointer;text-align:left;width:100%;background:transparent;color:var(--tx);border-radius:0;font-weight:400}
+.fm-notice:first-child{border-top:0}.fm-notice-icon{font-size:23px;flex:none}.fm-notice-main{flex:1;min-width:0}.fm-notice-title{font-weight:750}.fm-notice-desc{font-size:13px;color:var(--mu);overflow-wrap:anywhere}.fm-notice-meta{font-size:11px;color:var(--ac);margin-top:5px}.fm-notice.unread .fm-notice-title:after{content:" ●";color:var(--ac)}
+.fm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.fm-actions button{padding:9px 12px;font-size:12px}
 </style><meta name="theme-color" content="#0a0b0d"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <div id="login" class="hide" style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto"><div class="card" style="width:100%;max-width:400px">
 <div class="hero" style="padding:0 0 14px"><h1>FLUGMODUS</h1></div>
@@ -156,7 +163,9 @@ body::before{background-image:linear-gradient(var(--dyn-overlay),var(--dyn-overl
 <div id="main" class="hide">
 <div id="v-home"><div id="hf" class="hide"></div>
  <div class="hero"><h1><svg viewBox="0 0 512 512" width="28" height="28" style="vertical-align:middle;margin-right:10px"><rect width="512" height="512" rx="115" fill="#17191d"/><g stroke="var(--ac)" stroke-linecap="round" fill="none"><path d="M256 256L150 150M362 150L256 256M150 362L256 256M362 362L256 256" stroke-width="14"/><circle cx="150" cy="150" r="54" stroke-width="12"/><circle cx="362" cy="150" r="54" stroke-width="12"/><circle cx="150" cy="362" r="54" stroke-width="12"/><circle cx="362" cy="362" r="54" stroke-width="12"/></g><circle cx="256" cy="256" r="36" fill="var(--ac)"/></svg>FLUGMODUS</h1><p>Team-Planer</p></div>
- <div class="clock"><div class="dynamic-label">DYNAMIC EDITION · 2.5 TEST</div><div id="hg" class="mu"></div><div id="hc"></div><div id="hd" class="mu"></div></div>
+ <div class="fm-notify-top"><div class="dynamic-label">DYNAMIC EDITION · 2.6 TEST</div><button id="fmBell" type="button" class="fm-bell" aria-label="Mitteilungen öffnen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span id="fmBadge" class="fm-badge hide">0</span></button></div>
+ <div class="clock"><div id="hg" class="mu"></div><div id="hc"></div><div id="hd" class="mu"></div></div>
+ <div id="fmPanel" class="card hide"><div class="nav"><b>🔔 Mitteilungen</b><button id="fmClose" type="button" class="g" aria-label="Schließen">×</button></div><p class="mu" style="font-size:12px">Neue Aufträge und Chat-Nachrichten · nur auf diesem Gerät als gelesen gespeichert</p><div class="fm-actions"><button type="button" class="g" id="fmAll">Alle</button><button type="button" class="g" id="fmUnread">Ungelesen</button><button type="button" class="g" id="fmReadAll">Alle als gelesen</button></div><div id="fmList" aria-live="polite"></div></div>
  <div class="card home-weather-card"><div class="home-feature"><div><h2 style="margin-bottom:5px">Wetter vor Ort</h2><div class="mu" style="font-size:12px">Aktuelle Bedingungen</div></div><span style="font-size:24px">☀️</span></div>
  <div class="weather-main" style="margin-top:10px"><div id="weatherIcon" class="weather-icon">🌤️</div><div><div id="weatherValue" class="weather-temp">Wird geladen …</div><div id="weatherNote" class="mu" aria-live="polite">Wetterdienst wird kontaktiert</div></div></div>
  <div class="weather-place"><input id="weatherCity" aria-label="Ort für Wetter" value="Plauen" placeholder="Ort eingeben, z. B. Plauen"><button class="g" id="weatherBtn" type="button">Anzeigen</button></div></div>
@@ -314,6 +323,33 @@ try{var selfProfile=await db.doc("profiles/"+uid).get();if(!selfProfile.exists){
 $("msg").classList.add("hide");$("main").classList.remove("hide");
 var seen={};try{seen=JSON.parse(localStorage.getItem("seen:"+uid)||"{}")}catch(e){}
 var hs0=0;try{hs0=+localStorage.getItem("hs:"+uid)||0}catch(e){}
+// Kostenlose Benachrichtigungen: aus vorhandenen Jobs und Chats abgeleitet.
+// Kein Schreiben in /notifications: Serverregeln verbieten dies bewusst.
+var fmKey="fm26:notify:"+uid,fmState={started:Date.now(),read:{}};
+try{var fmStored=JSON.parse(localStorage.getItem(fmKey)||"null");if(fmStored&&typeof fmStored.started==="number"&&fmStored.read&&typeof fmStored.read==="object")fmState=fmStored}catch(e){}
+function fmSave(){try{localStorage.setItem(fmKey,JSON.stringify(fmState))}catch(e){}}
+fmSave();
+var fmItems=[],fmFilter="all";
+function fmJobTime(j){var m=/^j(\d{13})/.exec(String(j.id||""));return m?Number(m[1]):0}
+function fmUpdate(){
+ var out=[];
+ jobs.forEach(function(j){if(!Array.isArray(j.participants)||j.participants.indexOf(uid)<0||j.by===uid)return;var ts=fmJobTime(j);if(ts<fmState.started)return;out.push({id:"job:"+j.id,kind:"job",ts:ts,title:"Neuer Auftrag für dich",desc:"Du wurdest für „"+(j.title||"Auftrag")+"“ eingeteilt.",date:j.date,icon:"📅"})});
+ chat.forEach(function(m){if(m.by===uid||!Number.isFinite(Number(m.ts))||m.ts<fmState.started)return;var rm=m.room||"group";if(rm!=="group"&&rm.split("__").indexOf(uid)<0)return;var k="chat:"+rm+":"+m.by+":"+m.ts+":"+String(m.text||"").slice(0,30);out.push({id:k,kind:"chat",ts:m.ts,title:rm==="group"?"Neue Teamnachricht":"Neue private Nachricht",desc:nm(m.by)+": "+String(m.text||"").slice(0,150),room:rm,icon:"💬"})});
+ fmItems=out.sort(function(a,b){return b.ts-a.ts}).slice(0,100);
+ fmRender();
+}
+function fmRender(){
+ var unread=fmItems.filter(function(n){return !fmState.read[n.id]}).length,b=$('fmBadge');b.textContent=unread>99?'99+':unread;b.classList.toggle('hide',!unread);
+ var list=$('fmList');list.innerHTML='';var items=fmItems.filter(function(n){return fmFilter==='all'||!fmState.read[n.id]});
+ if(!items.length){var empty=document.createElement('p');empty.className='mu';empty.textContent=fmFilter==='unread'?'Keine ungelesenen Mitteilungen.':'Noch keine neuen Mitteilungen auf diesem Gerät.';list.appendChild(empty);return}
+ items.forEach(function(n){var row=document.createElement('button');row.type='button';row.className='fm-notice'+(!fmState.read[n.id]?' unread':'');var icon=document.createElement('span');icon.className='fm-notice-icon';icon.textContent=n.icon;var main=document.createElement('span');main.className='fm-notice-main';var title=document.createElement('div');title.className='fm-notice-title';title.textContent=n.title;var desc=document.createElement('div');desc.className='fm-notice-desc';desc.textContent=n.desc;var meta=document.createElement('div');meta.className='fm-notice-meta';meta.textContent=new Date(n.ts).toLocaleString('de-DE');main.append(title,desc,meta);row.append(icon,main);row.onclick=function(){fmState.read[n.id]=true;fmSave();fmRender();$('fmPanel').classList.add('hide');if(n.kind==='job'&&/^\d{4}-\d{2}-\d{2}$/.test(n.date||''))goDay(n.date);else if(n.kind==='chat'){showView('chat');room=null;$('cr').classList.add('hide');$('cl').classList.remove('hide');drawChat()}};list.appendChild(row)});
+}
+$('fmBell').onclick=function(){$('fmPanel').classList.toggle('hide');if(!$('fmPanel').classList.contains('hide'))$('fmPanel').scrollIntoView({behavior:'smooth',block:'start'})};
+$('fmClose').onclick=function(){$('fmPanel').classList.add('hide')};
+$('fmAll').onclick=function(){fmFilter='all';fmRender()};
+$('fmUnread').onclick=function(){fmFilter='unread';fmRender()};
+$('fmReadAll').onclick=function(){fmItems.forEach(function(n){fmState.read[n.id]=true});fmSave();fmRender()};
+
 function svHs(){try{localStorage.setItem("hs:"+uid,Date.now())}catch(e){}}
 document.addEventListener("visibilitychange",function(){if(document.hidden)svHs()});window.addEventListener("pagehide",svHs);
 var editingJob=null,equipment=[],equipmentReady=false;
@@ -362,8 +398,8 @@ function renderJobPeopleChoices(){var b=$("jobPeople");if(!b)return;b.innerHTML=
 // Zusätzliche Geräte werden aus Firestore geladen. Ohne Berechtigung bleibt die Grundausstattung sichtbar.
 db.collection("equipment").onSnapshot(function(snapshot){GEAR=GEAR.filter(function(g){return g[3]!=="custom"});snapshot.forEach(function(d){var v=d.data();if(typeof v.name==="string"&&v.name.trim()&&!GEAR.some(function(g){return g[0]===d.id}))GEAR.push([d.id,"EQ",v.name.trim(),"custom"])});equipmentReady=true;renderGearChoices();renderEquipment();renderStats()},function(){ $("equipmentError").textContent="Zusätzliche Geräte konnten nicht geladen werden. Die Grundausstattung bleibt verfügbar. Für die Technikverwaltung müssen die Firestore-Regeln ergänzt werden.";renderEquipment()});
 $("equipmentAdd").onclick=async function(){if(!admin)return;var name=$("equipmentName").value.trim();if(!name)return;if(name.length>80){alert("Name zu lang (maximal 80 Zeichen).");return}var id="eq"+Date.now();try{await db.doc("equipment/"+id).set({name:name,createdBy:uid,createdAt:Date.now()});$("equipmentName").value=""}catch(e){alert("Gerät konnte nicht gespeichert werden. Bitte Firebase-Regeln prüfen.")}};
-db.collection("jobs").onSnapshot(function(s){jobs=s.docs.map(function(d){var x=d.data();x.id=d.id;return x});draw();renderEquipment();renderStats()},function(){});
-function syncChat(){chat=groupChat.concat(directChat).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat()}
+db.collection("jobs").onSnapshot(function(s){jobs=s.docs.map(function(d){var x=d.data();x.id=d.id;return x});draw();renderEquipment();renderStats();fmUpdate()},function(){});
+function syncChat(){chat=groupChat.concat(directChat).sort(function(a,b){return (a.ts||0)-(b.ts||0)}).slice(-400);drawChat();fmUpdate()}
 db.collection("chat").where("room","==","group").onSnapshot(function(s){groupChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Gruppenchat:",e);alert("Teamchat konnte nicht geladen werden. Bitte Verbindung und Firebase-Regeln prüfen.")});
 db.collection("directMessages").where("participants","array-contains",uid).onSnapshot(function(s){directChat=s.docs.map(function(d){return d.data()});syncChat()},function(e){console.error("Privatchat:",e);alert("Privatchats konnten nicht geladen werden. Bitte Verbindung prüfen.")});
 db.collection("profiles").onSnapshot(function(s){profs={};s.docs.forEach(function(d){profs[d.id]=d.data()});grp();draw();drawChat();renderStats();if($("pn").dataset.l)av($("pav"),profs[uid]||{});if(!$("pn").dataset.l){$("pn").dataset.l=1;var m=profs[uid]||{};$("pn").value=m.name||"";$("pi").value=m.info||"";skills=m.skills||[];photo=m.photo||null;applyTheme(m.theme||"gold");drawSk();av($("pav"),m);renderJobPeopleChoices()}},function(){});
@@ -502,7 +538,7 @@ loadWeather();
 [].forEach.call(document.querySelectorAll("[data-go]"),function(b){b.onclick=function(){if(b.dataset.go==="pro"){showView("pro");return;}var t=document.querySelector('.tabs button[data-v="'+b.dataset.go+'"]');if(t)t.click()}});
 $("cb").onclick=function(){room=null;$("cr").classList.add("hide");$("cl").classList.remove("hide");drawChat()};
 drawSk();
-renderJobPeopleChoices();draw();grp();drawChat();renderEquipment();renderStats();
+renderJobPeopleChoices();draw();grp();drawChat();renderEquipment();renderStats();fmUpdate();
 })();
 </script>
 <script>
